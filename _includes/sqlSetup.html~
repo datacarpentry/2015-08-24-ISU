@@ -1,0 +1,34 @@
+<div id="sql"> <!-- Start of 'SQL' section. -->
+  <h3>SQL</h3>
+
+  <p>
+    There are many ways to use SQL. For this workshop we're going to use
+    the Firefox SQLite plugin.
+    
+  <p>
+    The installation is the same for all operating systems.
+
+
+    <div class="col-md-4">
+      <h4 id="windows">Installation</h4>
+      <p>
+	<ul>
+	  <li>If you don't have Firefox already, <a href="https://www.mozilla.org/en-US/firefox/new/"><b>Download the Firefox Installer</b></a>
+	  <li>Follow the instructions to install Firefox
+	  <li>Install the SQLite Manager add on: 
+	    <br> Go to <b>Menu (the three horizontal lines near the
+top right corner of Firefox) OR Tools -> Add-ons -> Search -> SQLite
+Manager -> Install -> Restart now </b>
+	  <li>Add SQLite Manager to the menu: <b>Menu OR (View -> Toolbars) -> Customize, then drag the SQLite
+   Manager icon to one of the empty menu squares on the right, Exit Customize</b>
+	    <li>Open SQLite Manager: <b>Menu OR Tools -> SQLite Manager</b>
+	     <li>To force SQLite to open in a Firefox tab instead of its own window (this allows you to use Firefox options like zoom), in the SQLite window: Tools -> Options -> Under <i>Start SQLite Manager</i> select <i>in a new tab</i>
+	    </ul>
+      </p>
+
+
+</div> 
+
+</div>
+
+</div>
