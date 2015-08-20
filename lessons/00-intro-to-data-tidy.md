@@ -14,7 +14,7 @@ minutes: 20
 
 You have taken on the data analysis role for your project and you are READY and WILLING!  Your sequencing facility has let you know your data is ready, and you are dreaming of your Nature publication in the works.  What should you be doing as a first step?
 
-"Creativity is a gift, it doesn’t come through if the air is cluttered."
+*"Creativity is a gift, it doesn’t come through if the air is cluttered."*
 
 This lesson will be a discussion of data organization using an example of project.
 
@@ -43,7 +43,7 @@ Imagine that you have come onto this project last week and luckily the data is r
 
 Here's what her samples looked like when she submitted them to the DNA facility.
 
-<Holder for DR_datasheet>
+[Data sheet from DR](https://github.com/datacarpentry/2015-08-24-ISU/blob/master/img/00-lesson-spreadsheet.xlsx?raw=true)
 
 Exercise:
 
@@ -91,7 +91,7 @@ The typical sequencing project will have either all your sequencing files in one
 
 Here's what the data organization of the sequencing facility looks like:
 
-<holder for figure>
+!(https://github.com/datacarpentry/2015-08-24-ISU/raw/master/img/00-seq-facility-data-structure.pdf)
 
 ###### Exercise.  You want to test a hypothesis that each day, fraction, and diet will contain genes that are signicantly different under varying treatments.  How does the sequencing facility organization and the organization of files for your analysis differ?  What about the naming of the files?  Are they useful to you?  Draw a data organization structure that you would recommend.
 
