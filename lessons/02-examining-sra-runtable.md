@@ -3,6 +3,7 @@ layout: lesson
 root: .
 title: examining SRA run table
 minutes: 20
+author:  Data capentry contributors
 ---
 
 ## Learning Objectives 

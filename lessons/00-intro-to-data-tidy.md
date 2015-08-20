@@ -3,6 +3,7 @@ layout: lesson
 root: .
 title: Data Organization
 minutes: 20
+author: Adina Howe
 ---
 
 ## Learning Objectives
