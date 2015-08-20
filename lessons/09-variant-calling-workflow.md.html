@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="lesson">Lesson</h1>
+<h1 id="automating-a-workflow">Automating a workflow</h1>
+<h2 id="learning-objectives">Learning Objectives:</h2>
+<h4 id="whats-the-goal-for-this-lesson">What's the goal for this lesson?</h4>
+<ul>
+<li>Use a series of command line tools to perform a variant calling workflow</li>
+<li>Use a For loop from the previous lesson to help automate repetitive tasks</li>
+<li>Group a series of sequential commands into a script to automate a workflow</li>
+</ul>
+<p>To get started with this lesson, we will need to grab some data from an outside server using <code>wget</code> on the command line.</p>
+<p>Make sure you are in the dc_workshop directory first</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> ~/dc_workshop
+$ <span class="kw">wget</span> http://reactomerelease.oicr.on.ca/download/archive/variant_calling.tar.gz</code></pre></div>
+<p>The file 'variant_calling.tar.gz' is what is commonly called a &quot;tarball&quot;, which is a compressed archive similar to the .zip files we have seen before. We can decompress this archive using the command below.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">tar</span> -zxvf variant_calling.tar.gz</code></pre></div>
+<p>This will create a directory tree that contains some input data (reference genome and fastq files) and a shell script that details the series of commands used to run the variant calling workflow.</p>
+<pre>
+variant_calling
+├── ref_genome
+│   └── ecoli_rel606.fasta
+├── run_variant_calling.sh
+└── trimmed_fastq
+    ├── SRR097977.fastq
+    ├── SRR098026.fastq
+    ├── SRR098027.fastq
+    ├── SRR098028.fastq
+    ├── SRR098281.fastq
+    └── SRR098283.fastq
+</pre>
+<p>Without getting into the details yet, the variant calling workflow will do the following steps</p>
+<ol style="list-style-type: decimal">
+<li>Index the reference genome for use by bwa and samtools</li>
+<li>Align reads to reference genome</li>
+<li>Convert the format of the alignment to sorted BAM, with some intermediate steps.</li>
+<li>Calculate the read coverage of positions in the genome</li>
+<li>Detect the single nucleotide polymorphisms (SNPs)</li>
+<li>Filter and report the SNP variants in VCF (variant calling format)</li>
+</ol>
+<p>Let's walk through the commands in the workflow</p>
+<p>The first command is to change to our working directory so the script can find all the files it expects</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> ~/dc_workshop/variant_calling</code></pre></div>
+<p>Assign the name/location of our reference genome to a variable ($genome)</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ot">genome=</span>data/ref_genome/ecoli_rel606.fasta</code></pre></div>
+<p>We need to index the reference genome for bwa and samtools. bwa and samtools are programs that are pre-installed on our server.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">bwa</span> index <span class="ot">$genome</span>
+<span class="kw">samtools</span> faidx <span class="ot">$genome</span></code></pre></div>
+<p>Create output paths for various intermediate and result files The -p option means mkdir will create the whole path if it does not exist (no error or message will give given if it does exist)</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> -p results/sai
+$ <span class="kw">mkdir</span> -p results/sam
+$ <span class="kw">mkdir</span> -p results/bam
+$ <span class="kw">mkdir</span> -p results/bcf
+$ <span class="kw">mkdir</span> -p results/vcf</code></pre></div>
+<p>We will now use a loop to run the variant calling work flow of each of our fastq files, so the list of command below will be execute once for each fastq files.</p>
+<p>We would start the loop like this, so the name of each fastq file will by assigned to $fq</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">for</span> <span class="kw">fq</span> in data/trimmed_fastq/*.fastq
+<span class="kw">&gt;</span> <span class="kw">do</span>
+<span class="kw">&gt;</span> <span class="co"># etc...</span></code></pre></div>
+<p>In the script, it is a good idea to use echo for debugging/reporting to the screen</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="st">&quot;working with file </span><span class="ot">$fq</span><span class="st">&quot;</span></code></pre></div>
+<p>This command will extract the base name of the file (without the path and .fastq extension) and assign it to the $base variable</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ot">base=$(</span><span class="kw">basename</span> <span class="ot">$fq</span> .fastq<span class="ot">)</span>
+$ <span class="kw">echo</span> <span class="st">&quot;base name is </span><span class="ot">$base</span><span class="st">&quot;</span></code></pre></div>
+<p>We will assign various file names to variables both for convenience but also to make it easier to see what is going on in the commands below.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ot">fq=</span>data/trimmed_fastq/<span class="ot">$base</span>\<span class="kw">.fastq</span>
+$ <span class="ot">sai=</span>results/sai/<span class="ot">$base</span>\<span class="kw">_aligned.sai</span>
+$ <span class="ot">sam=</span>results/sam/<span class="ot">$base</span>\<span class="kw">_aligned.sam</span>
+$ <span class="ot">bam=</span>results/bam/<span class="ot">$base</span>\<span class="kw">_aligned.bam</span>
+$ <span class="ot">sorted_bam=</span>results/bam/<span class="ot">$base</span>\<span class="kw">_aligned_sorted.bam</span>
+$ <span class="ot">raw_bcf=</span>results/bcf/<span class="ot">$base</span>\<span class="kw">_raw.bcf</span>
+$ <span class="ot">variants=</span>results/bcf/<span class="ot">$base</span>\<span class="kw">_variants.bcf</span>
+$ <span class="ot">final_variants=</span>results/vcf/<span class="ot">$base</span>\<span class="kw">_final_variants.vcf</span>    </code></pre></div>
+<p>Our data are now staged. The series of command below will run the steps of the analytical workflow</p>
+<p>Align the reads to the reference genome</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bwa</span> aln <span class="ot">$genome</span> <span class="ot">$fq</span> <span class="kw">&gt;</span> <span class="ot">$sai</span></code></pre></div>
+<p>Convert the output to the SAM format</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bwa</span> samse <span class="ot">$genome</span> <span class="ot">$sai</span> <span class="ot">$fq</span> <span class="kw">&gt;</span> <span class="ot">$sam</span></code></pre></div>
+<p>Convert the SAM file to BAM format</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">samtools</span> view -S -b <span class="ot">$sam</span> <span class="kw">&gt;</span> <span class="ot">$bam</span></code></pre></div>
+<p>Sort the BAM file</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">samtools</span> sort -f <span class="ot">$bam</span> <span class="ot">$sorted_bam</span></code></pre></div>
+<p>Index the BAM file for display purposes</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">samtools</span> index <span class="ot">$sorted_bam</span></code></pre></div>
+<p>Do the first pass on variant calling by counting read coverage</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">samtools</span> mpileup -g -f <span class="ot">$genome</span> <span class="ot">$sorted_bam</span> <span class="kw">&gt;</span> <span class="ot">$raw_bcf</span></code></pre></div>
+<p>Do the SNP calling with bcftools</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bcftools</span> view -bvcg <span class="ot">$raw_bcf</span> <span class="kw">&gt;</span> <span class="ot">$variants</span></code></pre></div>
+<p>Filter the SNPs for the final output</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bcftools</span> view <span class="ot">$variants</span> <span class="kw">|</span> <span class="kw">/usr/share/samtools/vcfutils.pl</span> varFilter - <span class="kw">&gt;</span> <span class="ot">$final_variants</span></code></pre></div>
+<hr />
+<p><strong>Exercise</strong> Run the script run_variant_calling.sh ****</p>
+</body>
+</html>

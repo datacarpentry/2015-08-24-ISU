@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="lesson">Lesson</h1>
+<h1 id="shell-scripts">Shell scripts</h1>
+<h2 id="learning-objectives">Learning Objectives:</h2>
+<h4 id="whats-the-goal-for-this-lesson">What's the goal for this lesson?</h4>
+<ul>
+<li>Understand what a shell script is</li>
+<li>Learn how automate an analytical workflow</li>
+</ul>
+<h2 id="what-is-a-shell-script">What is a shell script?</h2>
+<p>A shell script is basically a text file that contains a list of commands that are executed sequentially. The commands in a shell script are the same as you would use on the command line.</p>
+<p>Once you have worked out the details and tested your commands in the shell, you can save them into a file so, the next time, you can automate the process with a script.</p>
+<p>The basic anatomy of a shell script is a file with a list of commands. That is also the definition of pretty much any computer program.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">cd</span> ~/dc_sample_data
+
+<span class="kw">for</span> <span class="kw">file</span> in untrimmed_fastq/*.fastq
+<span class="kw">do</span>
+  <span class="kw">echo</span> <span class="st">&quot;My file name is </span><span class="ot">$file</span><span class="st">&quot;</span>
+<span class="kw">done</span></code></pre></div>
+<p>This looks a lot like the for loops we saw earlier. In fact, it is no different, apart from using indentation and the lack of the '&gt;' prompts; it's just saved in a text file. The line at the top ('#!/bin/bash') is commonly called the shebang line, which is a special kind of comment that tells the shell which program is to be used as the 'intepreter' that executes the code.</p>
+<p>In this case, the interpreter is bash, which is the shell environment we are working in. The same approach is also used for other scripting languages such as perl and python. The shebang line is actually optionally unless you want to make the script executable like a 'real' program.</p>
+<h2 id="how-to-run-a-shell-script">How to run a shell script</h2>
+<p>There are two ways to run a shell script the first way is to specify the interpreter (bash) and the name of the script. By convention, shell script use the .sh extension, though this is not enforced.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bash</span> myscript.sh
+<span class="kw">My</span> file name is untrimmed_fastq/SRR097977.fastq
+<span class="kw">My</span> file name is untrimmed_fastq/SRR098026.fastq</code></pre></div>
+<p>The second was is a little more complicated to set up and requires the shebang line we talked about earlier.</p>
+<p>The first step, which only needs to be done once, is to modify the 'permissions' of the text file so that the shell knows the file is executable.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">chmod</span> +x myscript.sh</code></pre></div>
+<p>After that, you can run the script as a regular program.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./myscript.sh</span>
+$ <span class="kw">bash</span> myscript.sh 
+<span class="kw">My</span> file name is untrimmed_fastq/SRR097977.fastq
+<span class="kw">My</span> file name is untrimmed_fastq/SRR098026.fastq</code></pre></div>
+<p>The thing about running programs on the command line is that the shell may not know the location of your executables unless they are in the 'path' of know locations for programs. So, you need to tell the shell the path to your script, which is './' if it is in the same directory.</p>
+<hr />
+<p><strong>Exercise</strong> 1) Use nano to save the code above to a script called myscript.sh 2) run the script ****</p>
+<h2 id="a-real-shell-script">A real shell script</h2>
+<p>Now, let's do something real. First, recall the code from our our fastqc workflow from this morning, with a few extra &quot;echo&quot; statements.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~/dc_workshop/data/untrimmed_fastq/
+
+<span class="kw">echo</span> <span class="st">&quot;Running fastqc...&quot;</span>
+<span class="kw">~/FastQC/fastqc</span> *.fastq
+<span class="kw">mkdir</span> -p ~/dc_workshop/results/fastqc_untrimmed_reads
+
+<span class="kw">echo</span> <span class="st">&quot;saving...&quot;</span>
+<span class="kw">mv</span> *.zip ~/dc_workshop/results/fastqc_untrimmed_reads/
+<span class="kw">mv</span> *.html ~/dc_workshop/results/fastqc_untrimmed_reads/
+
+<span class="kw">cd</span> ~/dc_workshop/results/fastqc_untrimmed_reads/
+
+<span class="kw">echo</span> <span class="st">&quot;Unzipping...&quot;</span>
+<span class="kw">for</span> <span class="kw">zip</span> in *.zip
+<span class="kw">do</span>
+  <span class="kw">unzip</span> <span class="ot">$zip</span>
+<span class="kw">done</span>
+
+<span class="kw">echo</span> <span class="st">&quot;saving...&quot;</span>
+<span class="kw">cat</span> */summary.txt <span class="kw">&gt;</span> ~/dc_workshop/docs/fastqc_summaries.txt</code></pre></div>
+<hr />
+<p><strong>Exercise</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Use nano to create a shell script using with the code above (you can copy/paste), named read_qc.sh</p></li>
+<li><p>Run the script</p></li>
+<li><p>Bonus points: Use something you learned yesterday to save the output of the script to a file while it is running. ****</p></li>
+</ol>
+</body>
+</html>
