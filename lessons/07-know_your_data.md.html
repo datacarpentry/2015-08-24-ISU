@@ -1,3 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
 <h1 id="getting-to-know-your-data">Getting to know your data</h1>
 <h2 id="learning-objectives">Learning Objectives:</h2>
 <h4 id="whats-the-goal-for-this-lesson">What's the goal for this lesson?</h4>
@@ -142,3 +152,5 @@
 <p><code>CHECKSUMS Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.chromosome.Chromosome.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.chromosome.Chromosome.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.genome.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.toplevel.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.chromosome.Chromosome.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.genome.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.toplevel.fa.gz Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.toplevel.fa.gz README</code> 4. Use the <code>less</code> command to examine the README file - in particular, look at the <sequence type> definition to understand what the differently zipped files are. 5. Generate a checksum using the <code>sum</code> command(<code>sum</code> is used by Enseml and is an alternative to <code>md5sum</code>) for the <strong>'Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz'</strong> file and compare with the last few digits of the sum displayed in the CHECKSUMS file. 6. Preview the first few lines (<code>head</code>) of the compressed (gzip'd) reference genome using the <code>zcat</code> command:</p>
 <p><code>bash $ zcat Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz |head</code> 7. Finally, unzip the E.coli reference genome, which will be part of the variant calling lesson and place it in your 'data folder' in a new 'ref_genome' folder.</p>
 <p><code>bash $ gzip -d Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz</code> <strong>Tip:</strong> create the 'ref_genome' folder in '~/dc_workshop/data' and use the <em>cp</em> command to move the data</p>
+</body>
+</html>
