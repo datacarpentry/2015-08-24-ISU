@@ -91,7 +91,8 @@ The typical sequencing project will have either all your sequencing files in one
 
 Here's what the data organization of the sequencing facility looks like:
 
-!(https://github.com/datacarpentry/2015-08-24-ISU/raw/master/img/00-seq-facility-data-structure.pdf)
+![data figure](https://raw.githubusercontent.com/datacarpentry/2015-08-24-ISU/master/img/00-seq-facility-data-structure.pdf)
+
 
 ###### Exercise.  You want to test a hypothesis that each day, fraction, and diet will contain genes that are signicantly different under varying treatments.  How does the sequencing facility organization and the organization of files for your analysis differ?  What about the naming of the files?  Are they useful to you?  Draw a data organization structure that you would recommend.
 
