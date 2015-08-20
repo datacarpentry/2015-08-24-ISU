@@ -6,14 +6,32 @@ minutes: 20
 ---
 
 ## Learning Objectives 
-
+* Identify 3 ways to download data onto a server
 * Get a general understanding of the NCBI SRA
 * Understand how to download a summary run table of the SRA
 * Be able to open a run table using a spreadsheet editor 
 * Be able to examine a run table (text file) at the command line
 
 ## Lesson 
+There are what we call "command line tools" that can download data from typical data sources such as FTP, HTTP, or HTTPS.  Additionally, there are "programs" that are host-specific or database-specific, such as NCBI SRA tools (demostrated below.)
+Mainly, when you are downloading data you will be using one of the three options.  
 
+The first of the the commands to learn is [wget](https://en.wikipedia.org/wiki/Wget) and [curl](https://en.wikipedia.org/wiki/Curl_(programming_language)).  Both are programs that retrieve content from web servers.  And both can be used effectively -- in other words, user-choice, for more details see [this post](http://daniel.haxx.se/docs/curl-vs-wget.html).  
+
+For example, if we wanted to download data from an FTP site, we could open a browser, and type in the the address.  The result would be a sequence file, named REL606.fa.gz would download onto your computer.
+
+Alternately, you could use download programs using wget. 
+
+    wget http://athyra.idyll.org/~t/REL606.fa.gz
+
+Or
+
+    curl -O http://athyra.idyll.org/~t/REL606.fa.gz
+    
+All programs have parameters that are associated with options from the program.  You can read documentation here for [wget](http://www.gnu.org/software/wget/manual/wget.html) and [curl](http://curl.haxx.se/docs/manual.html).  A note:  if you download software from Sourceforge, you'll want to get familiar with the curl -L command with the redirect to a file ">" which you'll learn later.
+   
+
+## Workign with the NCBI SRA
 The NCBI Sequence Read Archive is a large (>3 quadrillion basepairs as of 2014) repository for next-generation sequence data. Like many NCBI database it is complex and mastering its use is greater than the scope of this lesson. Very often, as in the Lenski paper, there will be a direct link (perhaps in the supplemental information) to where on the SRA the dataset can be found. The link from the Lenski paper is: http://www.ncbi.nlm.nih.gov/sra?term=SRA026813 
 
 
