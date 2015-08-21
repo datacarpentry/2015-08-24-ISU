@@ -33,7 +33,7 @@ You have two groups of mice (3 mice in each group as biolgoical triplicates).  T
 
 Rarely is a man/woman an island in these experiments.
 
-###### Exercise, put your thinking caps on
+## Exercise
 
 Identify who is involved in the data of this sequencing experiment?  
 
@@ -98,7 +98,9 @@ Here's what the data organization of the sequencing facility looks like:
 !(https://raw.githubusercontent.com/datacarpentry/2015-08-24-ISU/master/img/00-seq-facility-data-structure.jpg)
 
 
-## Exercise.  You want to test a hypothesis that each day, fraction, and diet will contain genes that are signicantly different under varying treatments.  How does the sequencing facility organization and the organization of files for your analysis differ?  What about the naming of the files?  Are they useful to you?  Draw a data organization structure that you would recommend.
+## Exercise.  
+
+You want to test a hypothesis that each day, fraction, and diet will contain genes that are signicantly different under varying treatments.  How does the sequencing facility organization and the organization of files for your analysis differ?  What about the naming of the files?  Are they useful to you?  Draw a data organization structure that you would recommend.
 
 ##Concluding notes
 
