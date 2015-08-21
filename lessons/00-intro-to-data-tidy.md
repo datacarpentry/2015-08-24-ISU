@@ -41,7 +41,7 @@ Think about the steps of this experiment and which ones generate data, what type
 
 ## Data Type 1, DNA extraction and the value of data standards
 
-Imagine that you have come onto this project last week and luckily the data is ready but you have to work with a team that has already influenced your data organization.  A past graduate student in your lab had extracted DNA and sent it to the sequencing Facility.  Her name was Diane Rockstar.  As she is a rockstar, she had labelled her samples with her initials and a number (in order of how she extracted the DNA).
+Imagine that you have come onto this project last week and luckily the data is ready but you have to work with a team that has already influenced your data organization.  A past graduate student in your lab had extracted DNA and sent it to The Sequencing Facility.  Her name was Diane Rockstar.  As she is a rockstar, she had labelled her samples with her initials and a number (in order of how she extracted the DNA).
 
 Here's what her samples looked like when she submitted them to the DNA facility.
 
