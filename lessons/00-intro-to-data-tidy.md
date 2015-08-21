@@ -33,20 +33,21 @@ You have two groups of mice (3 mice in each group as biolgoical triplicates).  T
 
 Rarely is a man/woman an island in these experiments.
 
-###### Exercise, put your thinking caps on:
+###### Exercise, put your thinking caps on
+
 Identify who is involved in the data of this sequencing experiment?  
 
 Think about the steps of this experiment and which ones generate data, what type, and who is likely to contribute to it?  Data comes from not only bioinformatics but also wet-lab techniques.
 
 ## Data Type 1, DNA extraction and the value of data standards
 
-Imagine that you have come onto this project last week and luckily the data is ready but you have to work with a team that has already influenced your data organization.  A past graduate student in your lab had extracted DNA and sent it o the sequencing Facility.  Her name was Diane Rockstar, and as she is a rockstar, she had labelled her samples with her initials and a number (in order of how she extracted the DNA).
+Imagine that you have come onto this project last week and luckily the data is ready but you have to work with a team that has already influenced your data organization.  A past graduate student in your lab had extracted DNA and sent it to the sequencing Facility.  Her name was Diane Rockstar.  As she is a rockstar, she had labelled her samples with her initials and a number (in order of how she extracted the DNA).
 
 Here's what her samples looked like when she submitted them to the DNA facility.
 
 [Data sheet from DR](https://github.com/datacarpentry/2015-08-24-ISU/blob/master/img/00-lesson-spreadsheet.xlsx?raw=true)
 
-Exercise:
+## Exercise:
 
 Take a couple minutes to look at this data, can you identify some problems with this datasheet?
 
@@ -88,14 +89,16 @@ You receive link to an FTP site (one way to transfer data between your computer 
 
 The typical sequencing project will have either all your sequencing files in one folder or separate folders for each sample.  The data you will get will likely include your sequencing files and run-specific metadata (e.g., lane, date, operator).
 
-###### Exercise.  Discuss:  To keep or not keep Raw data?  What are the advantages?  Disadvantages?
+## Exercise.  
+
+Discuss:  To keep or not keep Raw data?  What are the advantages?  Disadvantages?
 
 Here's what the data organization of the sequencing facility looks like:
 
-![data figure](https://raw.githubusercontent.com/datacarpentry/2015-08-24-ISU/master/img/00-seq-facility-data-structure.jpg)
+!(https://raw.githubusercontent.com/datacarpentry/2015-08-24-ISU/master/img/00-seq-facility-data-structure.jpg)
 
 
-###### Exercise.  You want to test a hypothesis that each day, fraction, and diet will contain genes that are signicantly different under varying treatments.  How does the sequencing facility organization and the organization of files for your analysis differ?  What about the naming of the files?  Are they useful to you?  Draw a data organization structure that you would recommend.
+## Exercise.  You want to test a hypothesis that each day, fraction, and diet will contain genes that are signicantly different under varying treatments.  How does the sequencing facility organization and the organization of files for your analysis differ?  What about the naming of the files?  Are they useful to you?  Draw a data organization structure that you would recommend.
 
 ##Concluding notes
 
