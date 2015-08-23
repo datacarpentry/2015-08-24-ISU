@@ -2,8 +2,7 @@
 layout: lesson
 root: .
 title: Unix file system
-minutes: 20
-author: Adina Howe
+author: Sheldon McKay
 ---
 
 
