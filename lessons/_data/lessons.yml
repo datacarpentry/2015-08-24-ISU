@@ -1,0 +1,20 @@
+- url: 00-intro-to-data-tidy.html
+  name: Introduction
+
+- url: 01-intro-to-ecoli-evo-experient.html
+  name: An experiment example
+
+- url: 02-examining-sra-runtable.html
+  name: SRA runtable
+
+- url: 03-unix-organization.html
+  name: Unix organization
+
+- url: 04_the_filesystem.html
+  name: Unix navigation
+
+- url: 05_searching_files.html
+  name: Search files in unix
+
+- url: 06-readQC.html
+  name: QC your data
