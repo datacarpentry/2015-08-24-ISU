@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Caveats of popular data and file formats</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Caveats of popular data and file formats</h1>
+          
+          <p>Materials by: <strong>Jeffrey Hollister</strong>, <strong>Alexander Duryee</strong>, <strong>Jennifer Bryan</strong>, <strong>Daisie Huang</strong>, <strong>Ben Marwick</strong>, <strong>Christie Bahlai</strong>, <strong>Owen Jones</strong>, <strong>Aleksandra Pawlik</strong></p>
+
+<h3>Commas as part of data values in <code>*.csv</code> files</h3>
+
+<p>In the <a href="05-exporting-data.md">previous lesson</a> we discussed how to export Excel file formats into <code>*.csv</code>. Whilst Comma Separated Value files are indeed very useful allowing for easily exchanging and sharing data. </p>
+
+<p>However, there are some significant problems with this particular format. Quite often the data values themselves may include commas (,). In that case, the software which you use (including Excel) will most likely incorrectly display the data in columns. It is because the commas which are a part of the data values will be interpreted as a delimiter.</p>
+
+<p>For example, our data could look like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    species_id,genus,species,taxa
+    AB,Amphispiza,bilineata,Bird
+    AH,Ammospermophilus,harrisi,Rodent-not,censused
+    AS,Ammodramus,savannarum,Bird
+</code></pre></div>
+<p>In record <code>AH,Ammospermophilus,harrisi,Rodent-not,censused</code> the value for <em>taxa</em> includes a comma (<code>Rodent-not,censused</code>). 
+If we try to read the above into Excel (or other spreadsheet programme), we will get something like this:</p>
+
+<p><img src="fig/csv-mistake.png" alt="Issue with importing csv format"></p>
+
+<p>The value for &#39;taxa&#39; was split into two columns (instead of being put in one column <code>D</code>). This can propagate to a number of further errors. For example, the &quot;extra&quot; column will be interpreted as a column with many missing values (and without a proper header!). In addition to that, the value in column <code>D</code> for the record in row 3 (so the one where the value for &#39;taxa&#39; contained the comma) is now incorrect. </p>
+
+<h3>Dealing with commas as part of data values in <code>*.csv</code> files</h3>
+
+<p>If you want to store your data in <code>*.csv</code> and expect that your data may contain commas in their values, you can avoid the problem discussed above by putting the values in quotes (&quot;&quot;). This <a href="../../../data/biology/species.csv">example data file</a> applies this rule so the actual data looks like:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">species_id,genus,species,taxa
+&quot;AB&quot;,&quot;Amphispiza&quot;,&quot;bilineata&quot;,&quot;Bird&quot;
+&quot;AH&quot;,&quot;Ammospermophilus&quot;,&quot;harrisi&quot;,&quot;Rodent-not censused&quot;
+&quot;AS&quot;,&quot;Ammodramus&quot;,&quot;savannarum&quot;,&quot;Bird&quot;
+&quot;BA&quot;,&quot;Baiomys&quot;,&quot;taylori&quot;,&quot;Rodent&quot;
+&quot;CB&quot;,&quot;Campylorhynchus&quot;,&quot;brunneicapillus&quot;,&quot;Bird&quot;
+&quot;CM&quot;,&quot;Calamospiza&quot;,&quot;melanocorys&quot;,&quot;Bird&quot;
+&quot;CQ&quot;,&quot;Callipepla&quot;,&quot;squamata&quot;,&quot;Bird&quot;
+&quot;CS&quot;,&quot;Crotalus&quot;,&quot;scutalatus&quot;,&quot;Reptile&quot;
+&quot;CT&quot;,&quot;Cnemidophorus&quot;,&quot;tigris&quot;,&quot;Reptile&quot;
+&quot;CU&quot;,&quot;Cnemidophorus&quot;,&quot;uniparens&quot;,&quot;Reptile&quot;
+</code></pre></div>
+<p>This original file does not contain commas in the values. </p>
+
+<p>But let&#39;s see what would happen if we introduced a comma into  <code>&quot;Rodent-not censused&quot;</code> - so that it looks like this: <code>&quot;Rodent-not, censused&quot;</code>. </p>
+
+<ol>
+<li>Open the <a href="../../../data/biology/species.csv">species.csv</a> file in Excel (or Calc in Libre Office).</li>
+<li>Add the comma (,) in <code>&quot;Rodent-not censused&quot;</code>.</li>
+<li>Save the file under a <strong>different name</strong> (but also in the <code>csv</code> format) and reopen it in Excel.</li>
+<li>The issue with the &quot;extra&quot; incorrect column should not appear.</li>
+</ol>
+
+<p>However, if you are working with already existing dataset in which the data values are not included in &quot;&quot; and but which have commas as both delimiters and parts of data values, you are potentially facing a major problem with <strong>data cleaning</strong>.</p>
+
+<p>If the dataset you&#39;re dealing with contains hundreds or thousands of records, cleaning them up manually (by either removing commas from the data values or putting the values into quotes - &quot;&quot;) is not only going to take hours and hours but may potentially end up with you accidentally introducing many errors.</p>
+
+<p>Cleaning up datasets is one of major problems in many scientific disciplines. The approach almost always depends on the particular context. However, it is a good practice to clean the data in an automated fashion, for example by writing and running a script. Other lessons in Data Carpentry covering shell, Python and R will give you the basis for developing skills to build relevant scripts.</p>
+
+<h3>Tab Separated Values format</h3>
+
+<h3>Other delimiters for data formats</h3>
+
+<p>Previous: <a href="05-exporting-data.html">Exporting data from spreadsheets.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2006-data-formats-caveats.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

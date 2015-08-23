@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Common mistakes by spreadsheet users</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Common mistakes by spreadsheet users</h1>
+          
+          <p>Authors:<strong>Christie Bahlai</strong>, <strong>Aleksandra Pawlik</strong><br>
+Contributors: <strong>Jennifer Bryan</strong>, <strong>Alexander Duryee</strong>, <strong>Jeffrey Hollister</strong>, <strong>Daisie Huang</strong>, <strong>Owen Jones</strong>, and
+<strong>Ben Marwick</strong></p>
+
+<h2>Not filling in zeroes</h2>
+
+<p><strong>Example</strong>: When entering count data for a community, nonzero observations may be rare- why bother if they’re mostly zeroes?</p>
+
+<p><strong>Solution</strong>: Spreadsheets and statistical programs will likely mis-interpret blank cells that are meant to be zero. This is equivalent to leaving out data. Zero observations are real data! Leaving zero data blank is not good in a written lab notebook, but NEVER okay when you move your data into a digital format.</p>
+
+<p>This problem can be minimized or correctly addressed by using spreadsheet functions or conditional statements. An example is shown in the following spreadsheet (<a href="../data/biology/null.values.xlsx">Excel</a>; <a href="../data/biology/null.values.ods">OpenDocument</a>).
+As seen in the example, the SUM() function correctly ignores the value of NA in cell A5 and calculates the sum while the basic approach of adding the values in the 3 cells gives a <em>wrong argument</em> error.</p>
+
+<h2>Using bad null values</h2>
+
+<p><strong>Example</strong>: using -999 or other numerical values (or zero).</p>
+
+<p><strong>Solution</strong>: Many statistical programs will not recognize that numeric values of null are indeed null. It will depend on the final application of your data and how you intend to analyse it, but it is essential to use a clearly defined and CONSISTENT null indicator. Blanks (most applications) and NA (for R) are good choices.</p>
+
+<p>From White et al, 2013, <a href="http://library.queensu.ca/ojs/index.php/IEE/article/view/4608/4898">Nine simple ways to make it easier to (re)use your data.</a> Ideas in Ecology and Evolution:</p>
+
+<p><img src="fig/3_white_table_1.jpg" alt="White et al."></p>
+
+<h2>Using formatting to convey information</h2>
+
+<p><strong>Example</strong>: highlighting cells, rows or columns that should be excluded from an analysis, leaving blank rows to indicate separations in data.</p>
+
+<p><strong>Solution</strong>: create a new field to encode which data should be excluded.</p>
+
+<p>[create an example of this in Excel]</p>
+
+<h2>Using formatting to make the data sheet look pretty</h2>
+
+<p><strong>Example</strong>: merging cells. </p>
+
+<p><strong>Solution</strong>: If you’re not careful, formatting a worksheet to be more aesthetically pleasing can compromise your computer’s ability to see associations in the data. Merged cells are an absolute formatting NO-NO if you want to make your data readable by statistics software. Consider restructuring your data in such a way that you will not need to merge cells to organize your data</p>
+
+<p>[create an example of this in Excel]</p>
+
+<p><img src="fig/4_merged_cells.jpg" alt="by @naupakaz"></p>
+
+<h2>Placing comments or units in cells</h2>
+
+<p><strong>Example</strong>: Your data was collected, in part, by a summer student you later found out was mis-identifying some of your species, some of the time. You want a way to note these data are suspect.
+<strong>Solution</strong>: Most statistical programs can’t see Excel’s comments, and would be confused by comments placed within your data cells. Create another field if you need to add notes to cells. Similarly, don’t include units- ideally, all the measurements you place in one column should be in the same unit, but if for some reason they aren’t, create another field and specify the units the cell is in.</p>
+
+<p>[create an example of this in Excel]</p>
+
+<h2>More than one piece of information in a cell</h2>
+
+<p><strong>Example</strong>: You find one male, and one female of the same species. You enter this as 1M, 1F.
+<strong>Solution</strong>: Never, ever, EVER include more than one piece of information in a cell. If you need both these measurements, design your data sheet to include this information.</p>
+
+<p><img src="../../../img/excel_tables_example_sk_e2_p1_wrl.png" alt="Each table in separate worksheet">
+<img src="../../../img/excel_tables_example_sk_e2_p2.png" alt="Each table in separate worksheet"></p>
+
+<h2>Field name problems</h2>
+
+<p>Choose descriptive field names, but be careful not to include: spaces, numbers, or special characters of any kind. Spaces can be misinterpreted by parsers that use whitespace as delimiters and some programs don’t like field names that are text strings that start with numbers.
+Underscores (<code>_</code>) are a good alternative to spaces and consider writing names in camel-case to improve readability. Remember that abbreviations that make sense at the moment may not be so obvious in 6 months but don&#39;t overdo it with names that are eccessivly long.</p>
+
+<h3>Examples</h3>
+
+<table><thead>
+<tr>
+<th><strong>good name</strong></th>
+<th><strong>good alternative</strong></th>
+<th><strong>avoid</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Max_temp</td>
+<td>MaxTemp</td>
+<td>Maximum Temp (°C)</td>
+</tr>
+<tr>
+<td>Precipitation</td>
+<td>Precipitation_mm</td>
+<td>precmm</td>
+</tr>
+<tr>
+<td>Mean<em>year</em>growth</td>
+<td>MeanYearGrowth</td>
+<td>Mean growth/year</td>
+</tr>
+<tr>
+<td>sex</td>
+<td>sex</td>
+<td>M/F</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>weight</td>
+<td>w.</td>
+</tr>
+<tr>
+<td>cell_type</td>
+<td>CellType</td>
+<td>Cell type</td>
+</tr>
+<tr>
+<td>first_observation</td>
+<td>Observation_01</td>
+<td>1st Obs.</td>
+</tr>
+</tbody></table>
+
+<h2>Special characters in data</h2>
+
+<p><strong>Example</strong>: You treat Excel as a word processor when writing notes, even copying data directly from Word or other applications.</p>
+
+<p><strong>Solution</strong>: This is a common mistake. For example, when writing longer text in a cell, people often include line breaks, em-dashes, et al in their spreadsheet.  Worse yet, when copying data in from applications such as Word, formatting and fancy non-standard characters (such as left- and right-aligned quotation marks) are included.  When exporting this data into a coding/statistical environment or into a relational database, dangerous things may occur, such as lines being cut in half and encoding errors being thrown.</p>
+
+<p>General best practice is to avoid adding characters such as newlines, tabs, and vertical tabs.  In other words, treat a text cell as if it were a simple web form that can only contain text and spaces.</p>
+
+<p>[ include sample of problematic data, and cleaned version ]</p>
+
+<p>Previous: <a href="01-format-data.html">Formatting data tables in spreadsheets.</a> Next: <a href="03-dates-as-data.html">Dates as data.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2002-common-mistakes.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

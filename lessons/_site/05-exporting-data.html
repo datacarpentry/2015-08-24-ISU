@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Exporting data from spreadsheets</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Exporting data from spreadsheets</h1>
+          
+          <p>Authors:<strong>Christie Bahlai</strong>, <strong>Aleksandra Pawlik</strong><br>
+Contributors: <strong>Jennifer Bryan</strong>, <strong>Alexander Duryee</strong>, <strong>Jeffrey Hollister</strong>, <strong>Daisie Huang</strong>, <strong>Owen Jones</strong>, and
+<strong>Ben Marwick</strong></p>
+
+<h3>Spreadsheet data formats</h3>
+
+<p>Storing data in Excel default file format (<code>*.xls</code> or <code>*.xlsx</code> - depending on the Excel version) is a bad idea. Why? Because it is a proprietary format, and it is possible that in the future, technology won’t exist (or will become sufficiently rare)  to make it inconvenient, if not impossible, to open the file. </p>
+
+<p>Think about zipdisks. How many old theses in your lab are “backed up” and stored on zipdisks? Ever wanted to pull out the raw data from one of those?
+<em>Exactly.</em></p>
+
+<p>Also, other spreadsheet software may not be able to open the files saved in a proprietary Excel format.</p>
+
+<p>But more insidiously- different versions of Excel may be changed so they handle data differently, leading to inconsistencies.</p>
+
+<p>As an example, do you remember how we talked about how Excel stores dates earlier? Turns out there are multiple defaults for different versions of the software. And you can switch between them all willy-nilly. So, say you’re compiling Excel-stored data from multiple sources. There’s dates in each file- Excel interprets them as their own internally consistent serial numbers. When you combine the data, Excel will take the serial number from the place you’re importing it from, and interpret it using the rule set for the version of Excel you’re using. Essentially, you could be adding a huge error to your data, and it wouldn’t necessarily be flagged by any data cleaning methods if your ranges overlap.</p>
+
+<p>Storing data in a universal, open, static format will help deal with this problem. Try tab-delimited or CSV (more common). CSV files are plain text files where the columns are separated by commas, hence &#39;comma separated variables&#39; or CSV. The advantage of a CSV over an Excel/SPSS/etc. file is that we can open and read a CSV file using just about any software, including a simple text editor. Data in a CSV can also be easily imported into other formats and environments, such as SQLite and R. We&#39;re not tied to a certain version of a certain expensive program when we work with CSV, so it&#39;s a good format to work with for maximum portability and endurance. Most spreadsheet programs can save to delimited text formats like CSV easily, although they complain and make you feel like you’re doing something wrong along the way.</p>
+
+<p>To save a file you have opened in Excel into the <code>*.csv</code> format:</p>
+
+<ol>
+<li>From the top menu select &#39;File&#39; and &#39;Save as&#39;.</li>
+<li>In the &#39;Format&#39; field, from the list, select &#39;Comma Separated Values&#39; (<code>*.csv</code>).</li>
+<li>Double check the file name and the location where you want to save it and hit &#39;Save&#39;.</li>
+</ol>
+
+<p><img src="../../../img/excel-to-csv.png" alt="Saving an Excel file to CSV"></p>
+
+<p>An important note for backwards compatibility: you can open CSVs in Excel!</p>
+
+<h2>A Note on Cross-platform Operability##</h2>
+
+<p>(or, how typewriters are ruining your work)</p>
+
+<p>By default, most coding and statistical environments expect UNIX-style line endings (<code>\n</code>) as representing line breaks.  However, Windows uses an alternate line ending signifier (<code>\r\n</code>) by default for legacy compatibility with Teletype-based systems.  As such, when exporting to CSV using Excel, your data will look like this:</p>
+
+<blockquote>
+<p>data1,data2\r\n1,2\r\n4,5\r\n…</p>
+</blockquote>
+
+<p>which, upon passing into most environments (which split on <code>\n</code>), will parse as:</p>
+
+<blockquote>
+<p>data1<br>
+data2\r<br>
+1<br>
+2\r<br>
+...</p>
+</blockquote>
+
+<p>thus causing terrible things to happen to your data.  For example, <code>2\r</code> is not a valid integer, and thus will throw an error (if you’re lucky) when you attempt to operate on it in R or Python.  Note that this happens on Excel for OSX as well as Windows, due to legacy Windows compatibility.</p>
+
+<p>There are a handful of solutions for enforcing uniform UNIX-style line endings on your exported CSVs:</p>
+
+<ol>
+<li>When exporting from Excel, save as a “Windows comma separated (.csv)” file</li>
+<li><p>If you store your data file under version control (which you should be doing!) using Git, edit the <code>.git/config</code> file in your repository to automatically translate <code>\r\n</code> line endings into <code>\n</code>.
+Add the follwing to the file (<a href="http://nicercode.github.io/blog/2013-04-30-excel-and-line-endings">see the detailed tutorial</a>):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[filter &quot;cr&quot;]
+    clean = LC_CTYPE=C awk &#39;{printf(\&quot;%s\\n\&quot;, $0)}&#39; | LC_CTYPE=C tr &#39;\\r&#39; &#39;\\n&#39;
+    smudge = tr &#39;\\n&#39; &#39;\\r&#39;` 
+</code></pre></div>
+<p>and then create a file <code>.gitattributes</code> that contains the line:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">*.csv filter=cr
+</code></pre></div></li>
+<li><p>Use <a href="http://dos2unix.sourceforge.net/">dos2unix</a> (available on OSX, *nix, and Cygwin) on local files to standardize line endings.</p></li>
+</ol>
+
+<p>Previous: <a href="04-quality-control.html">Basic quality control and data manipulation in spreadsheets.</a> Next: <a href="06-data-formats-caveats.html">Caveats of popular data and file formats.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2005-exporting-data.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

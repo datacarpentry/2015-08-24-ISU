@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <!-- USING THIS LESSON TEMPLATE -->
+
+<!--
+All the lesson specific information is in the following two files.
+1. UPDATE THE INFORMATION IN _data/info.yml
+2. UPDATE THE INDEX OF LESSONS IN _data/lessons.yml
+-->
+
+<!-- THE LESSON INFORMATION -->
+
+<!-- Get the information from _data/info.yml -->
+
+<h1>Data Carpentry Spreadsheets for Ecology</h1>
+
+<p>Data Carpentry&#39;s aim is to teach researchers basic concepts, skills,
+and tools for working with data so that they can get more done in less
+time, and with less pain. The lessons below were designed for those interested 
+in working with Ecology data in Spreadsheets. </p>
+
+<p><strong>Content Contributors: Christie Bahlai, Aleksandra Pawlik, Jennifer Bryan, Alexander Duryee, Jeffrey Hollister, Daisie Huang, Owen Jones, Ben Marwick, Tracy Teal</strong></p>
+
+<p><strong>Lesson Maintainers: Aleksandra Pawlik, Tracy Teal</strong></p>
+
+<p><br> </p>
+
+<h4>Lesson status: Teaching</h4>
+
+<!--
+  [Information on Lesson Status Categories]()
+-->
+
+<!-- ###### INDEX OF LESSONS ON THIS TOPIC ###### -->
+
+<h2>Lessons:</h2>
+
+<!-- Get information from _data/lessons.yml -->
+
+<ol>
+<li><p><a href="00-intro.html">Introduction</a></p></li>
+<li><p><a href="01-format-data.html">Formatting data tables in spreadsheets</a></p></li>
+<li><p><a href="02-common-mistakes.html">Common formatting mistakes by spreadsheet users</a></p></li>
+<li><p><a href="03-dates-as-data.html">Dates as data</a></p></li>
+<li><p><a href="04-quality-control.html">Basic quality control and data manipulation in spreadsheets</a></p></li>
+<li><p><a href="05-exporting-data.html">Exporting data from spreadsheets</a></p></li>
+<li><p><a href="06-data-formats-caveats.html">Data Formats Caveats</a></p></li>
+</ol>
+
+<!-- End information from _data/lessons.yml -->
+
+<h2>Data</h2>
+
+<p>Data files for the workshop are available at: ()[]</p>
+
+<p><br></p>
+
+<h2>Requirements</h2>
+
+<p>
+Data Carpentry's teaching is hands-on, so participants are encouraged to use
+their own computers to insure the proper setup of tools for an efficient workflow.
+<em>These lessons assume no prior knowledge of the skills or tools</em>, but working 
+through this lesson requires working copies of the software described below.
+To most effectively use these materials, please make sure to install everything 
+<em>before</em> working through this lesson.
+</p>
+
+<div id="r"> <!-- Start of 'R' section. -->
+  <h3>Spreadsheets</h3>
+
+  <p>
+    Spreadsheets are useful for data entry and data organization, and 
+some subsetting and sorting of the data as well as getting an overview of the data. To interact with spreadsheets, we can use
+    <a href="https://www.libreoffice.org">LibreOffice</a>,
+    <a href="https://products.office.com/en-us/excel">Microsoft Excel</a>,
+    <a href="http://www.gnumeric.org">Gnumeric</a>, 
+    <a href="https://www.openoffice.org">OpenOffice.org</a>, or other programs. 
+  Commands may differ a bit between programs, but general ideas for thinking about spreadsheets is the same. 
+
+<p>
+If you don't have a spreadsheet program already, for this lesson we will use 
+<a href="https://www.libreoffice.org">LibreOffice</a> because it's a free, open source spreadsheet program.
+
+
+    <div class="col-md-4">
+      <h4 id="windows">Windows</h4>
+      <p>
+    <ul>
+      <li><b>Download the Installer</b>
+    <br>Install LibreOffice by going to the <a href=https://www.libreoffice.org/download/libreoffice-fresh/>installation page</a>. The version for Windows 
+should automatically be selected. Click <b>Download Version 4.4.2</b>. You 
+will go to a page that asks about a donation, but you don't need to make one.
+Your download should begin automatically. 
+          <li><b>Install LibreOffice</b>
+        <br>Once the installer is downloaded, double click on it and it should install.
+        </ul>
+      </p>
+    </div>
+
+    <div class="col-md-4">
+      <h4 id="macosx">Mac OS X</h4>
+      <p>
+        <ul>
+          <li><b>Download the Installer</b>
+        <br>Install LibreOffice by going to the <a href=https://www.libreoffice.\
+org/download/libreoffice-fresh/>installation page</a>. The version for Mac OS X
+should automatically be selected. Click <b>Download Version 4.4.2</b>. You
+will go to a page that asks about a donation, but you don't need to make one.
+Your download should begin automatically.
+          <li><b>Install LibreOffice</b>
+            <br>The file <i>LibreOffice_4.4.2_MacOS_x86-64</i> should have been downloaded. Double click on this file, and LibreOffice will be installed. 
+            </ul>
+      </p>
+
+
+    </div>
+    
+    <div class="col-md-4">
+      <h4 id="linux">Linux</h4>
+      <p>
+        <ul>
+          <li><b>Download the Installer</b>
+        <br>Install LibreOffice by going to the <a href=https://www.libreoffice.\
+org/download/libreoffice-fresh/>installation page</a>. The version for Linux
+should automatically be selected. Click <b>Download Version 4.4.2</b>. You
+will go to a page that asks about a donation, but you don't need to make one.
+Your download should begin automatically.
+          <li><b>Install LibreOffice</b>
+            <br>Once the installer is downloaded, double click on it and it shou\
+ld install.
+            </ul>
+      </p>
+
+
+
+    </div>
+
+</div> 
+
+<p><p><strong>Twitter</strong>: @datacarpentry</p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%20index.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

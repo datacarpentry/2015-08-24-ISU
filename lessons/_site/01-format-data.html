@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Formatting data tables in Spreadsheets</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Formatting data tables in Spreadsheets</h1>
+          
+          <p>Authors: <strong>Christie Bahlai</strong>, <strong>Aleksandra Pawlik</strong><br>
+Contributors: <strong>Jennifer Bryan</strong>, <strong>Alexander Duryee</strong>, <strong>Jeffrey Hollister</strong>, <strong>Daisie Huang</strong>, <strong>Owen Jones</strong>, 
+<strong>Ben Marwick</strong> and <strong>Sebastian Kupny</strong>.</p>
+
+<h2>Learning Objectives</h2>
+
+<ul>
+<li>Learning best practices for recording and formatting data in spreadsheets</li>
+<li>Understanding the correspondence between columns and rows in spreadsheets 
+and data structure</li>
+<li>Understanding the correspondence between spreadsheet cells, columns and rows 
+and data observations and values</li>
+</ul>
+
+<p>The most common mistake made is treating the 
+program like it is a lab notebook- that is, relying on context, notes in the 
+margin, spatial layout of data and fields to convey information. As humans, 
+we can (usually) interpret these things, but computers are dumb, and unless 
+we explain to the computer what every single thing means, it will not be able 
+to see how our data fit together.</p>
+
+<p>Using the power of computers, we can manage and analyze data in much more 
+effective and faster ways, but to use that power, we have to set up
+our data for the computer to be able to understand it (and computers are very 
+literal).</p>
+
+<p>This is why it’s extremely important to set up well-formatted tables from the 
+outset- before you even start entering data from your very first preliminary 
+experiment. <strong>Data organization is the foundation of your research project.</strong>
+It can make it easier or harder to work with your data throughout your
+analysis, so it&#39;s worth thinking about when you&#39;re doing your data
+entry or setting up your experiment. You can set things up in a different
+way in spreadsheets, but it limits your ability to work with the data
+in other programs or have the you-of-6-months-from-now or your collaborator
+work with the data. </p>
+
+<h3>Structuring data in spreadsheets</h3>
+
+<p>There are two rules you should keep in mind when entering your data 
+into any spreadsheet:</p>
+
+<ol>
+<li><p>Each data cell is an observation that must have all the relevant information 
+connected to it for it to stand on its own.</p></li>
+<li><p>You must make it clear to the computer how the data cells relate to the 
+relevant information and each other.</p></li>
+</ol>
+
+<p>So, you can see how these two points apply directly to how you set up your 
+spreadsheets. </p>
+
+<h3>Columns for variables and rows for observations</h3>
+
+<p>The rule of thumb, when setting up a datasheet, is columns= variables, 
+rows = observations, cells=data (values).
+Let&#39;s try this with an example using some of our sample data: <a href="../../../data/biology/species.csv">a list of 
+species</a> and 
+<a href="../../../data/biology/plots.csv">a list of plots</a>. 
+You can do that by simply opening the <code>*.csv</code> files in Excel. Excel will 
+automatically try to fit the data from the <code>*.csv</code> file and put the first 
+value in column A and the second value in column B. </p>
+
+<p>The output should look like this:</p>
+
+<p><img src="fig/excel_tables_example.png" alt="Tables in Excel - example 1"></p>
+
+<p><img src="fig/excel_tables_example1.png" alt="Tables in Excel- example 2"></p>
+
+<p>A common strategy is creating multiple data tables within 
+one spreadsheet. <strong>This confuses the computer, so don&#39;t do this!</strong> 
+When you create multiple tables within one 
+spreadsheet, you’re drawing false associations between things for the computer, 
+which sees each row as an observation. You’re also potentially using the same 
+field name in multiple places, which will make it harder to clean your data up 
+into a usable form. The example below depicts the problem:</p>
+
+<p><img src="fig/2_datasheet_example.jpg" alt="Classic spreadsheet mistake"></p>
+
+<p>But what about worksheet tabs? That seems like an easy way to organize data, right? Well, yes and no. When you create extra tabs, you fail to allow the computer to see connections in the data that are there (you have to introduce spreadsheet application-specific functions or scripting to ensure this connection). Say, for instance, you make a separate tab for each day you take a measurement.</p>
+
+<p>This is bad practice for two reasons:<br>
+<strong>1)</strong> you are more likely to accidentally add inconsistencies to your data if each time you take a measurement, you start recording data in a new tab, and<br>
+<strong>2)</strong> even if you manage to prevent all inconsistencies from creeping in, you will add an extra step for yourself before you analyze the data because you will have to combine these data into a single datatable. You will have to explicitly tell the computer how to combine tabs - and if the tabs are inconsistently formatted, you might even have to do it by hand!</p>
+
+<p>The next time you’re entering data, and you go to create another tab or table, I want you to ask yourself “Self, could I avoid adding this tab by adding another column to my original spreadsheet?”</p>
+
+<p>Your data sheet might get very long over the course of experiment. This makes it harder to enter data if you can’t see your headers at the top of the spreadsheet. But do NOT repeat headers. These can easily get mixed into the data, leading to problems down the road.</p>
+
+<p>Instead you can Freeze the column headers.</p>
+
+<ul>
+<li>Demonstration of freezing column headers</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Two graduate students went out and collected data in 1977 and 1978. They
+gave their data to their advisor who put it in two separate tabs in
+the same Exel spreadsheet.</p>
+
+<ul>
+<li><p>Using the survey<em>data</em>tab.xls spreadsheet in the 1977 tab, how would you 
+change it so that the data in multiple tables is in one table?</p></li>
+<li><p>Using the survey<em>data</em>tab.xls spreadsheet in the 1978 tab, how would you 
+change it so that the data in multiple tables is in one table?</p></li>
+<li><p>How could you combine the data in both of those tabs in to one table
+in one tab?</p></li>
+</ul>
+
+<p>Previous: <a href="00-intro.html">Introduction</a>  Next: <a href="02-common-mistakes.html">Common formatting mistakes by spreadsheet users.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2001-format-data.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

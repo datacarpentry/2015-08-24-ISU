@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Basic quality control and data manipulation in spreadsheets</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Basic quality control and data manipulation in spreadsheets</h1>
+          
+          <p>Authors:<strong>Christie Bahlai</strong>, <strong>Aleksandra Pawlik</strong><br>
+Contributors: <strong>Jennifer Bryan</strong>, <strong>Alexander Duryee</strong>, <strong>Jeffrey Hollister</strong>, <strong>Daisie Huang</strong>, <strong>Owen Jones</strong>, and
+<strong>Ben Marwick</strong></p>
+
+<p>When you have a well-structured data table, you can use several simple techniques within your spreadsheet to ensure the data you’ve entered is free of errors. </p>
+
+<p><strong>Tip!</strong> <em>Before doing any quality control operations, save your original file with the formulas and a name indicating it is the original data. Create a separate file with appropriate naming and versioning, and ensure your data is stored as “values” and not as formulas.  Because formulas refer to other cells, and you may be moving cells around, you may compromise the integrity of your data if you do not take this step!</em></p>
+
+<p><strong>readMe files:</strong> As you start manipulating your data files, create a readMe document / text file to keep track of your files and document your manipulations so that they may be easily understood and replicated, either by your future self or by an independent researcher. Your readMe file should document all of the files in your data set (including documentation), describe their content and format, and lay out the organizing principles of folders and subfolders. For each of the separate files listed, it is a good idea to document the manipulations or analyses that were carried out on those data.</p>
+
+<p>[Example: converting all data to values: use soybean aphid suction trap dataset for this section]</p>
+
+<h2>Sorting</h2>
+
+<p>Bad values often sort to bottom or top of the column. For example, if your data should be numeric, then alphabetical and null data will group at the ends of the sorted data. Sort your data by each field, one at a time. Scan through each column, but pay the most attention to the top and the bottom of a column. 
+If your dataset is well-structured and does not contain formulas, sorting should never affect the integrity of your dataset.</p>
+
+<p>[Example: sorting]</p>
+
+<h2>Conditional formatting</h2>
+
+<p>Use with caution! But a great way to flag inconsistent values when entering data.</p>
+
+<p>[Example: conditional formatting]</p>
+
+<h2>Check on cell formats</h2>
+
+<p>A good way to check if you’ve got data of the wrong type in a column is by checking column format. This can also help prevent issues when you export your data.</p>
+
+<p>[Example: variable format]</p>
+
+<h2>Pivot tables</h2>
+
+<p>Pivot tables are a very powerful tool in Excel. They’re useful to check for issues with data integrity because they provide a quick, visual way to spot things that are amiss, including with categorical variables. They are also great for reshaping data and obtaining summary statistics quickly in a drag and drop interface.</p>
+
+<p>[Example in Pivot Table]</p>
+
+<p>Why would I need to reshape my data? Different analyses require data to be in different formats- example: taking a species list to a diversity analysis.</p>
+
+<p>[Use species list example]</p>
+
+<p>Note: these operations can be done in most statistical or programming packages (i.e. using reshape2, plyr  in R)</p>
+
+<p>Previous:<a href="03-dates-as-data.html">Dates as data.</a> Next: <a href="05-exporting-data.html">Exporting data from spreadsheets.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2004-quality-control.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

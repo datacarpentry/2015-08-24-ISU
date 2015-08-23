@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Dates as data</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Dates as data</h1>
+          
+          <p>Authors:<strong>Christie Bahlai</strong>, <strong>Aleksandra Pawlik</strong><br>
+Contributors: <strong>Jennifer Bryan</strong>, <strong>Alexander Duryee</strong>, <strong>Jeffrey Hollister</strong>, <strong>Daisie Huang</strong>, <strong>Owen Jones</strong>, and
+<strong>Ben Marwick</strong></p>
+
+<h2>Learning Objectives</h2>
+
+<ul>
+<li>Understading how dates are handled and formatted in spreadsheets</li>
+<li>Manipulating dates stored in spreadhseets</li>
+<li>Understanding the caveats of the default formatting of the dates</li>
+</ul>
+
+<p>Dates in spreadsheets are stored in one column. Whilst this seems the most natural way to record dates, it actually is not a good practice. A spreadsheet application will display the dates in seemingly correct way (for the human eye) but how it actually handles and stores the dates may be problematic.</p>
+
+<p>Let&#39;s try with a simple challenge.</p>
+
+<h4>Challenge: pulling month out of dates</h4>
+
+<ul>
+<li>  In the <code>data</code> subdirectory there is an example dataset:  <a href="../../../data/biology/surveys-exercise-extract_month.csv">a short list of species</a> with one of the columns containing dates. </li>
+<li>  Extract month from the dates to the new column.</li>
+<li>  Hint: use the dedicated function MONTH.</li>
+</ul>
+
+<p><strong>Questions</strong>  </p>
+
+<ul>
+<li>Did you manage to extract months from all dates?How about the last two rows?<br></li>
+<li>Do you know why this happens?</li>
+</ul>
+
+<p><strong>Note</strong>: Excel is unable to parse dates from before 1899-12-31, and will thus leave these untouched.  If you’re mixing historic data from before and after this date, Excel will translate only the post-1900 dates into its internal format, thus resulting in mixed data.  If you’re working with historic data, be extremely careful with your dates!
+Excel also entertains a second date system, the 1904 date system, as the default in Excel for Macintosh. This system will assign a different serial number than the <a href="https://support.microsoft.com/kb/180162">1900 date system</a>. Because of this, <a href="http://datapub.cdlib.org/2014/04/10/abandon-all-hope-ye-who-enter-dates-in-excel/">dates must be checked for accuracy when exporting data from Excel</a> (look for dates that are ~4 years off). </p>
+
+<h2>Data formats in spreadsheets</h2>
+
+<p>Spreadsheet programs have numerous “useful features” which allow them to “handle” dates in a variety of ways.</p>
+
+<p><img src="fig/5_excel_dates_1.jpg" alt="Many formats, many ambiguities"></p>
+
+<p>But these ‘features’ often allow ambiguity to creep into your data. Ideally, data should be as unambiguous as possible. </p>
+
+<h3>Dates stored as integers</h3>
+
+<p>The first thing you need to know is that Excel <strong>stores dates as a number</strong> - see the last column in the above figure. Essentially, it counts the days from a default of December 31, 1899, and thus stores July 2, 2014 as  the serial number 41822.</p>
+
+<p>(But wait. That’s the default on my version of Excel. We’ll get into how this can introduce problems down the line later in this lesson. )</p>
+
+<p>This serial number thing can actually be useful in some circumstances. Say you had a sampling plan where you needed to sample every thirty seven days. In another cell, you could type:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">=B2+37
+</code></pre></div>
+<p>And it would return</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">8-Aug
+</code></pre></div>
+<p>because it understands the date as a number <code>41822</code>, and <code>41822 +37 = 41859</code> which Excel interprets as August 8, 2014. It retains the format (for the most part) of the cell that is being operated upon, (unless you did some sort of formatting to the cell before, and then all bets are off).</p>
+
+<p>Which brings us to the many ‘wonderful’ customizations Excel provides in how it displays dates. If you refer to the figure above, you’ll see that there are many, MANY ways that ambiguity creeps into your data depending on the format you chose when you enter your data, and if you’re not fully cognizant of which format you’re using, you can end up actually entering your data in a way that Excel will badly misinterpret. </p>
+
+<p><strong>Question</strong><br>
+What will happen if you save the file in Excel (in <code>csv</code> format) and then open the <code>surveys-exercise-extract_month.csv</code> file using a plain text editor? </p>
+
+<p><strong>Note</strong><br>
+You will notice that when exporting into a text-based format (such as CSV), Excel will export its internal date integer instead of a useful value (that is, the dates will be represented as integer numbers). This can potentially lead to problems, if you use other software to manipulate the file.</p>
+
+<h3>Advantages of Day-of-Year Formatting</h3>
+
+<h4>Challenge: understanding the DOY formatting</h4>
+
+<p>Download and open from the <code>data</code> <a href="../../../data/biology/date-doy-exercise.xls">a spreadsheet with a list of dates</a>.  </p>
+
+<ul>
+<li>The dates in the first column seem to be OK. You could for example record dates in this manned if each tab or whole spreadsheet was containing dates just from one particular year.</li>
+<li>However, when you look at the second column, you can see that these dates were interpreted in a quite differently!</li>
+</ul>
+
+<p>Storing dates in <code>Day-of-Year</code> format helps remove this ambiguity. Let&#39;s look at this issue a bit closer.</p>
+
+<p>Once, I received a dataset from a colleague representing insect counts that were taken every few days over the summer, and things went something like this:</p>
+
+<p><img src="fig/6_excel_dates_2.jpg" alt="So, so ambiguous, it&#39;s even confusing Excel"></p>
+
+<p>If Excel was to be believed, my colleague had been collecting bugs IN THE FUTURE. Now, I have no doubt this person is highly capable, but I believe time travel was beyond even his grasp.</p>
+
+<p>Entering dates in the <code>DOY</code> format in one cell is helpful but due to the fact that the spreadsheet programmes may interpret and save the data in different ways (doing that somewhat behind the scenes), there is a better practice.<br>
+In dealing with dates in spreadsheets, we recommend separating <strong>date data into separate fields</strong> (day, month, year), which will eliminate any chance of ambiguity. </p>
+
+<p>There is also another option:<br>
+In my own work, I tend to store my dates in two fields: year, and day of year (DOY). Why? Because this is what’s useful to me, and there is practically no possibility for ambiguity creeping in.</p>
+
+<p>The types of statistical models I build usually incorporate year as a factor, to account for year-to-year variation, and then I use DOY to measure the passage of time within a year. </p>
+
+<p>So, can you convert all your dates into DOY format? Well, in Excel, here’s a handy dandy guide:</p>
+
+<p><img src="fig/7_excel_dates_3.jpg" alt="Kill that ambiguity before it bites you!"></p>
+
+<p>Previous: <a href="02-common-mistakes.html">Common formatting mistakes by spreadsheet users.</a> Next: <a href="04-quality-control.html">Basic quality control and data manipulation in spreadsheets.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2003-dates-as-data.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

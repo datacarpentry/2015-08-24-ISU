@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Using spreadsheet programs for scientific data</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Using spreadsheet programs for scientific data</h1>
+          
+          <p>Authors:<strong>Christie Bahlai</strong>, <strong>Aleksandra Pawlik</strong><br>
+Contributors: <strong>Jennifer Bryan</strong>, <strong>Alexander Duryee</strong>, <strong>Jeffrey Hollister</strong>, <strong>Daisie Huang</strong>, <strong>Owen Jones</strong>, <strong>Clare Sloggett</strong>, <strong>Harriet Dashnow</strong> and
+<strong>Ben Marwick</strong></p>
+
+<p>Spreadsheet programs are very useful graphical interfaces for designing data tables and handling very basic data quality control functions. </p>
+
+<hr>
+
+<h3>Spreadsheet programs</h3>
+
+<ul>
+<li>LibreOffice - used in these lessons because it&#39;s a free, open source
+spreadsheet program</li>
+<li>Microsoft Excel</li>
+<li>Gnumeric</li>
+<li>OpenOffice.org</li>
+</ul>
+
+<p>Commands may differ a bit between programs, but general ideas
+for thinking about spreadsheets is the same.</p>
+
+<hr>
+
+<p>Spreadsheets encompass a lot of the things we need
+to be able to do as researchers. We can use them for:</p>
+
+<ul>
+<li>Data entry</li>
+<li>Organizing data</li>
+<li>Subsetting and sorting data</li>
+<li>Statistics</li>
+<li>Plotting</li>
+</ul>
+
+<hr>
+
+<p>How many people have used spreadsheets in their research?</p>
+
+<p>Spreadsheets can be very useful, but they can also be
+frustrating and even sometimes give us incorrect results.</p>
+
+<p>What are some things that you&#39;ve accidentally done in
+a spreadsheet, or have been frustrated that you can&#39;t do
+easily?</p>
+
+<hr>
+
+<h3>Spreadsheet outline</h3>
+
+<p>In this lesson, we’re going to talk about:</p>
+
+<ul>
+<li>Good data entry practices - formatting data tables in spreadsheets</li>
+<li>How to avoid common formatting mistakes</li>
+<li>Dates as data - beware!</li>
+<li>Basic quality control and data manipulation in spreadsheets</li>
+<li>Exporting data from spreadsheets</li>
+</ul>
+
+<p><em>Overall good data practices</em></p>
+
+<hr>
+
+<h3>What this lesson will not teach you</h3>
+
+<ul>
+<li>How to do statistics in a spreadsheet</li>
+<li>How to do plotting in a spreadsheet</li>
+<li>How to write code in spreadsheet programs</li>
+</ul>
+
+<p>If you&#39;re looking to do this, a good reference is
+Head First Excel by O&#39;Reilly</p>
+
+<hr>
+
+<h3>Why aren&#39;t we teaching this</h3>
+
+<ul>
+<li>It is difficult to track or reproduce statistical
+or plotting analyses done in spreadsheet programs</li>
+</ul>
+
+<hr>
+
+<p>The cardinal rules of using spreadsheet programs for data:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">1. Put all your variables in columns
+2. Put each observation in its own row
+3. Leave the raw data raw - don’t mess with it!
+4. Export to a text based format like CSV.
+</code></pre></div>
+<p>In reality, though, many scientists use spreadsheet programs for much more 
+than this. We use them to create data tables for publications, to generate 
+summary statistics, and make figures. 
+Generating tables for publications in a spreadsheet is not optimal- often, 
+when formatting a data table for publication, we’re reporting key summary 
+statistics in a way that is not really meant to be read as data, and often 
+involves special formatting (merging cells, creating borders, making it 
+pretty). We advise you to do this sort of operation within your document 
+editing software.</p>
+
+<p>The latter two applications,  generating statistics and figures,  should 
+be used with caution: because of the graphical, drag and drop nature of 
+spreadsheet programs, it can be very difficult, if not impossible, to 
+replicate your steps (much less retrace anyone else&#39;s), particularly if your 
+stats or figures require you to do more complex calculations. Furthermore, 
+in doing calculations in a spreadsheet, it’s easy to accidentally apply a 
+slightly different formula to multiple adjacent cells. When using a 
+command-line based statistics program like R or SAS, it’s practically 
+impossible to accidentally apply a calculation to one observation in your 
+dataset but not another unless you’re doing it on purpose. </p>
+
+<p>HOWEVER, there are circumstances where you might want to use a spreadsheet 
+program to produce “quick and dirty” calculations or figures, and some of 
+these features can be used in data cleaning, prior to importation into a 
+statistical analysis program. We will show you how to use some features of 
+spreadsheet programs to check your data quality along the way and produce 
+preliminary summary statistics.</p>
+
+<p>In this lesson, we will assume that you are most likely using Excel as your 
+primary spreadsheet program- there are others (gnumeric, Calc from OpenOffice),
+ and their functionality is similar, but Excel seems to be the program most 
+used by biologists and ecologists.</p>
+
+<p><img src="fig/1_helpful_clippy.jpg" alt="Helpful clippy - img by @tim_yates"></p>
+
+<p>In this lesson, we’re going to talk about:</p>
+
+<ol>
+<li><a href="01-format-data.html">Formatting data tables in spreadsheets.</a></li>
+<li><a href="02-common-mistakes.html">Common formatting mistakes by spreadsheet users.</a></li>
+<li><a href="03-dates-as-data.html">Dates as data.</a></li>
+<li><a href="04-quality-control.html">Basic quality control and data manipulation in spreadsheets.</a></li>
+<li><a href="05-exporting-data.html">Exporting data from spreadsheets.</a></li>
+<li><a href="06-data-formats-caveats.html">Data export formats caveats</a></li>
+</ol>
+
+<p>Next: <a href="01-format-data.html">Formatting data tables in spreadsheets.</a></p>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%2000-intro.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>
