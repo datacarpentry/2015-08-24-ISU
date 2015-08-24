@@ -72,7 +72,7 @@ According to [wikipedia](https://en.wikipedia.org/wiki/Checksum) a checksum is '
 $ wget http://de.iplantcollaborative.org/dl/d/6E4E9943-93F8-4136-86E3-14DA6D1B604F/GCF_000017985.1_ASM1798v1_genomic_2.fna
 ```
 
-2. Next for each file use md5sum and compare the results
+2. Next for each file use md5sum and compare the results     
 ``` 
 $ md5sum <file>
 ```
