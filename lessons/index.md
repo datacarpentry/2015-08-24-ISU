@@ -37,7 +37,7 @@ Contributors: **Jennifer Bryan**, **Alexander Duryee**, **Jeffrey Hollister**, *
 7. [Read QC](06-readQC.html)
 8. [Know your data](07-know_your_data.html)
 9. [Automation in unix](08-automating_a_workflow.html)
-10. [R: before we start](10-before-we-start.Rmd)
+10. [R: before we start](10-before-we-start.html)
 
 
 
