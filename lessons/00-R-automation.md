@@ -1,3 +1,11 @@
+---
+layout: lesson
+root: .
+title: 
+minutes: 20
+author: Adina Howe
+---
+
 # Automating a script in R
 
 ### Exercise
