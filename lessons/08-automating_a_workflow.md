@@ -85,7 +85,8 @@ workflow earlier, with a few extra "echo" statements.
 
     cd ~/dc_workshop/data/   
 
-    echo "Running fastqc..." ~/FastQC/fastqc *.fastq   
+    echo "Running fastqc..." 
+    ~/FastQC/fastqc *.fastq   
     mkdir -p ~/dc_workshop/results/fastqc_untrimmed_reads   
 
     echo "saving..."   
