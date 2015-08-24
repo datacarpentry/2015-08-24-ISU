@@ -83,7 +83,7 @@ The thing about running programs on the command line is that the shell may not k
 Now, let's do something real.  First, recall the code from our our fastqc
 workflow earlier, with a few extra "echo" statements.
 
-    cd ~/dc_workshop_data/untrimmed_fastq/   
+    cd ~/dc_workshop/data/   
 
     echo "Running fastqc..." ~/FastQC/fastqc *.fastq   
     mkdir -p ~/dc_workshop/results/fastqc_untrimmed_reads   
