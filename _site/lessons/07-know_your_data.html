@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1 id="getting-to-know-your-data">Getting to know your data</h1>
+
+<h2 id="learning-objectives">Learning Objectives:</h2>
+
+<h4 id="whats-the-goal-for-this-lesson">What’s the goal for this lesson?</h4>
+<ul>
+  <li>You should be able to identify common features of “data” and data formats and what those features imply         </li>
+  <li>You should be able to look at a file and be able to identify the following types of data: fasta, fastq, fastg, sra, sff, vcf, sam, bam, bed, etc…        </li>
+  <li>You should be able to identify where your data came from (provenance)       </li>
+</ul>
+
+<h4 id="at-the-end-of-this-lesson-you-should-be-able-to">At the end of this lesson you should be able to:</h4>
+<ul>
+  <li>Recognize file formats     </li>
+  <li>Whether your data files are zipped or unzipped. You should have an understanding of file compression.       </li>
+  <li>How to determine the file size.         </li>
+  <li>How many units are in the file (i.e. nucleotides, lines of data, sequence reads, etc.)      </li>
+  <li>How to look at data structure using the shell – does it agree with the file extension?      </li>
+  <li>Identify a binary, flat text file?          </li>
+</ul>
+
+<p><strong>The following table shows some of the common types of data files and includes some information about them:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">File Extension</th>
+      <th style="text-align: left">Type of Data</th>
+      <th style="text-align: left">Format</th>
+      <th style="text-align: left">Example(s)</th>
+      <th style="text-align: left"> </th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">txt</td>
+      <td style="text-align: left">multi-format</td>
+      <td style="text-align: left">Text</td>
+      <td style="text-align: left">study metadata, tab-delimited data</td>
+      <td style="text-align: left"><a href="https://en.wikipedia.org/wiki/Text_file">txt</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">fastq</td>
+      <td style="text-align: left">nucleotide</td>
+      <td style="text-align: left">Text</td>
+      <td style="text-align: left">sequencing reads</td>
+      <td style="text-align: left"><a href="https://en.wikipedia.org/wiki/FASTQ_format"> fastq</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">fasta</td>
+      <td style="text-align: left">nucleotide, protein</td>
+      <td style="text-align: left">Text</td>
+      <td style="text-align: left">the human genome</td>
+      <td style="text-align: left"><a href="https://en.wikipedia.org/wiki/FASTA"> fasta</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sff</td>
+      <td style="text-align: left">nucleotide</td>
+      <td style="text-align: left">Binary</td>
+      <td style="text-align: left">Roche/454 sequencing data</td>
+      <td style="text-align: left"><a href="http://www.ncbi.nlm.nih.gov/Traces/trace.cgi?cmd=show&amp;f=formats&amp;m=doc&amp;s=format#sff"> sff</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">vcf</td>
+      <td style="text-align: left">multi-format</td>
+      <td style="text-align: left">Text</td>
+      <td style="text-align: left">variation/SNP calls</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sam</td>
+      <td style="text-align: left">alignment</td>
+      <td style="text-align: left">Text</td>
+      <td style="text-align: left">reads aligned to a reference</td>
+      <td style="text-align: left"><a href="https://samtools.github.io/hts-specs/SAMv1.pdf"> sam</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bam</td>
+      <td style="text-align: left">alignment</td>
+      <td style="text-align: left">Binary</td>
+      <td style="text-align: left">reads aligned to a reference</td>
+      <td style="text-align: left"><a href="https://samtools.github.io/hts-specs/SAMv1.pdf"> bam</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bed</td>
+      <td style="text-align: left">metadata / feature definitions</td>
+      <td style="text-align: left">Binary</td>
+      <td style="text-align: left">genome coverage</td>
+      <td style="text-align: left"><a href="http://www.ensembl.org/info/website/upload/bed.html"> bed</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">h5</td>
+      <td style="text-align: left">binary hierarchical</td>
+      <td style="text-align: left">Binary</td>
+      <td style="text-align: left">PacBio sequencing data</td>
+      <td style="text-align: left"><a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format"> h5</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pileup</td>
+      <td style="text-align: left">alignment</td>
+      <td style="text-align: left">Text</td>
+      <td style="text-align: left">mpileup, SNP and indel calling</td>
+      <td style="text-align: left"><a href="https://en.wikipedia.org/wiki/Pileup_format"> pileup</a></td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="looking-at-the-data-for-this-workshop">Looking at the data for this workshop</h2>
+
+<p>In this workshop, there are a few bioinformatics-related data types we will focus on (beyond simple text files - although in principle many of the files are text). First let’s consider the definition/documentation for these file types:</p>
+
+<p><strong>Plain-text</strong></p>
+
+<ul>
+  <li>fastq   - <a href="https://en.wikipedia.org/wiki/FASTQ_format">definition</a></li>
+  <li>sam file - <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">definition</a></li>
+  <li>vcf file - <a href="https://samtools.github.io/hts-specs/VCFv4.1.pdf">definition</a></li>
+</ul>
+
+<p><strong>Compressed/binary</strong></p>
+
+<ul>
+  <li>zip file - <a href="https://en.wikipedia.org/wiki/Zip_%28file_format%29">definition</a></li>
+  <li>bam file (binary sam file) - <a href="https://www.broadinstitute.org/igv/BAM">definition</a></li>
+</ul>
+
+<h4 id="md5sum">md5sum</h4>
+<p>In addition to understanding how to work with these files, we also need to understand how to verify the integrity of these files. It is not uncommon to download a file, and get error messages, have to restart downloads, move files, etc. In these cases, knowing how to verify that two files are the same (not simply named the same) is very important. To do this we use a process called checksums:</p>
+
+<p>According to <a href="https://en.wikipedia.org/wiki/Checksum">wikipedia</a> a checksum is ‘a small-size datum from a block of digital data for the purpose of detecting errors which may have been introduced during its transmission or storage.’In other words it is a result we can generate that uniquely corresponds to a file. Any change to that file (adding a space, deleting a character, etc.) will change the file’s checksum. </p>
+
+<h2 id="exercises">Exercises</h2>
+
+<h3 id="a-file-integrity---download-a-reference-genome-and-verify-the-download">A. File integrity - download a reference genome and verify the download</h3>
+
+<ol>
+  <li>
+    <p>Use <code>wget</code> to download one ‘test’ genomes from the following url:
+<code>
+$ wget http://de.iplantcollaborative.org/dl/d/6E4E9943-93F8-4136-86E3-14DA6D1B604F/GCF_000017985.1_ASM1798v1_genomic_2.fna
+</code></p>
+  </li>
+  <li>
+    <p>Next for each file use md5sum and compare the results
+<code>
+$ md5sum &lt;file&gt;
+</code></p>
+  </li>
+</ol>
+
+<h3 id="b-download-a-reference-genome-from-ensembl">B. Download a reference genome from Ensembl</h3>
+
+<ol>
+  <li>Visit the Ensembl database at <a href="http://bacteria.ensembl.org/index.html">http://bacteria.ensembl.org/index.html</a>. In the ‘Search for a genome’ search box search for ‘Escherichia coli B str. REL606’; this should bring you to the genome of the strain used in the Lenski experiment (<a href="http://bacteria.ensembl.org/escherichia_coli_b_str_rel606/Info/Index">ensemble direct link</a>)</li>
+  <li>There will be a link ‘<a href="ftp://ftp.ensemblgenomes.org/pub/bacteria/release-27/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/dna/">Download DNA Sequence</a>(FASTA)’. Click on the link an copy the URL from the web browsers navigation/location display (i.e. http://bacteria.ensembl.org/escherichia_coli_b_str_rel606/Info/Index). </li>
+  <li>Use the <code>wget</code> command to download the contents of the ftp site (don’t forget to use the ‘*’ wildcard to download all files)
+<code>
+$ wget ftp://ftp.ensemblgenomes.org/pub/bacteria/release-27/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/dna/*
+</code></li>
+</ol>
+
+<p>You should have downloaded the following files:</p>
+
+<pre><code>CHECKSUMS    
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.chromosome.Chromosome.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz    
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.chromosome.Chromosome.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.genome.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.toplevel.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.chromosome.Chromosome.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.genome.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.toplevel.fa.gz   
+Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.toplevel.fa.gz   
+README   
+</code></pre>
+
+<ol>
+  <li>
+    <p>Use the <code>less</code> command to examine the README file - in particular, look at the <sequence type=""> definition to understand what the differently zipped files are. </sequence></p>
+  </li>
+  <li>
+    <p>Generate a checksum using the <code>sum</code> command(<code>sum</code> is used by Enseml and is  an alternative to <code>md5sum</code>) for the <strong>‘Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz’</strong> file and compare with the last few digits of the sum displayed in the CHECKSUMS file. </p>
+  </li>
+  <li>
+    <p>Preview the first few lines (<code>head</code>) of the compressed (gzip’d) reference genome using the <code>zcat</code> command:
+<code>
+$ zcat Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz |head
+</code></p>
+  </li>
+  <li>
+    <p>Finally, unzip the E.coli reference genome, which will be part of the variant calling lesson and place it in your ‘data folder’ in a new ‘ref_genome’ folder. 
+<code>
+$ gzip -d Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz
+</code></p>
+  </li>
+</ol>
+
+<p><strong>Tip:</strong> create the ‘ref_genome’ folder in ‘~/dc_workshop/data’ and use the <em>cp</em> command to move the data</p>
+
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%20lessons/07-know_your_data.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

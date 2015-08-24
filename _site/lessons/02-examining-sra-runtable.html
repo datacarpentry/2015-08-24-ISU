@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>examining SRA run table</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>examining SRA run table</h1>
+          
+          <h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+  <li>Identify 3 ways to download data onto a server</li>
+  <li>Get a general understanding of the NCBI SRA</li>
+  <li>Understand how to download a summary run table of the SRA</li>
+  <li>Be able to open a run table using a spreadsheet editor </li>
+  <li>Be able to examine a run table (text file) at the command line</li>
+</ul>
+
+<h2 id="lesson">Lesson</h2>
+<p>There are what we call “command line tools” that can download data from typical data sources such as FTP, HTTP, or HTTPS.  Additionally, there are “programs” that are host-specific or database-specific, such as NCBI SRA tools (demostrated below.)
+Mainly, when you are downloading data you will be using one of the three options.  </p>
+
+<p>The first of the the commands to learn is <a href="https://en.wikipedia.org/wiki/Wget">wget</a> and <a href="https://en.wikipedia.org/wiki/Curl_(programming_language)">curl</a>.  Both are programs that retrieve content from web servers.  And both can be used effectively – in other words, user-choice, for more details see <a href="http://daniel.haxx.se/docs/curl-vs-wget.html">this post</a>.  </p>
+
+<p>For example, if we wanted to download data from an FTP site, we could open a browser, and type in the the address.  The result would be a sequence file, named REL606.fa.gz would download onto your computer.</p>
+
+<p>Alternately, you could use download programs using wget. </p>
+
+<pre><code>wget http://athyra.idyll.org/~t/REL606.fa.gz
+</code></pre>
+
+<p>Or</p>
+
+<pre><code>curl -O http://athyra.idyll.org/~t/REL606.fa.gz
+</code></pre>
+
+<p>All programs have parameters that are associated with options from the program.  You can read documentation here for <a href="http://www.gnu.org/software/wget/manual/wget.html">wget</a> and <a href="http://curl.haxx.se/docs/manual.html">curl</a>.  A note:  if you download software from Sourceforge, you’ll want to get familiar with the curl -L command with the redirect to a file “&gt;” which you’ll learn later.</p>
+
+<h2 id="workign-with-the-ncbi-sra">Workign with the NCBI SRA</h2>
+<p>The NCBI Sequence Read Archive is a large (&gt;3 quadrillion basepairs as of 2014) repository for next-generation sequence data. Like many NCBI database it is complex and mastering its use is greater than the scope of this lesson. Very often, as in the Lenski paper, there will be a direct link (perhaps in the supplemental information) to where on the SRA the dataset can be found. The link from the Lenski paper is: http://www.ncbi.nlm.nih.gov/sra?term=SRA026813 </p>
+
+<h2 id="exercises">Exercises</h2>
+
+<blockquote>
+  <p>Sections A and B of these exercises take place on your own laptop - no need to open the shell or connect to your remote computer yet!</p>
+</blockquote>
+
+<h4 id="a-locate-the-run-accessor-for-the-lenski-dataset-on-the-sra">A. Locate the Run Accessor for the Lenski Dataset on the SRA</h4>
+
+<ol>
+  <li>Access the Lenski dataset from the provided link: http://www.ncbi.nlm.nih.gov/sra?term=SRA026813 
+ &gt; You will be presented with a page for the overall SRA accession SRA026813 - this is a collection of all the experimental data</li>
+  <li>Click on the first entry (<a href="http://www.ncbi.nlm.nih.gov/sra/SRX040669%5Baccn%5D">ZDB30</a>); this will take you to an a page for an SRX (Sequence Read eXperiment). Take a few minutes to examine some of the descriptions on the page</li>
+  <li>Click on the <a href="http://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP004752">Run Selector Link</a>; this is a description of all of the NGS datasets related to the experiment. </li>
+  <li>Go to the top of the page and <strong>In the ‘Total row’</strong> you will see there are 37 runs, 10.15Gb data, and 16.45 Gbases of data. Click the ‘RunInfo Table’ button. 
+ &gt; We are not downloading any actual sequence data here! This is only a text file that fully describes the entire dataset</li>
+</ol>
+
+<p>You should now have a file called <strong>SraRunTable.txt</strong></p>
+
+<h4 id="b-review-the-sraruntable-in-a-spreadsheet-program">B. Review the SraRunTable in a spreadsheet program</h4>
+
+<ol>
+  <li>Using your choice of spreadsheet program open the <strong>SraRunTable.txt</strong> file. If prompted this is a tab-delimited file. </li>
+</ol>
+
+<p>Taking a quick glance at the file, you should be able to answer the following questions:</p>
+
+<ol>
+  <li>What strain of <em>E. coli</em> was used in this experiment?</li>
+  <li>What was the sequencing platform used for this experiment?</li>
+  <li>What samples in the experiment contain <a href="http://www.illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html">paired end</a> sequencing data?</li>
+</ol>
+
+<p>After answering the question, you should avoid saving this file; we don’t want to make any changes. If you were to save this file, make sure you save it as a plain <strong>.txt</strong> file. </p>
+
+<h3 id="c-looking-at-a-text-file-at-the-command-line">C. Looking at a text file at the command line</h3>
+
+<p>We are going to be doing our formal shell lesson next. However, we can already play with a few simple commands that have you thinking about how the shell can be useful tool in examining your dataset</p>
+
+<blockquote>
+  <p>At this point, please verify that you are working from the the ami-6516b30e image where we have prestaged all the data for the rest of the lessons</p>
+</blockquote>
+
+<p>During the shell lesson we will go much more step-by-step, building our way through every command before we use it. For this first command go ahead any copy and paste if you are just getting use to the shell. The other commands are short enough to type and follow. </p>
+
+<ol>
+  <li>
+    <p>Follow you instructor’s direction to navigate to the sample SraRunTable.txt file that has be placed on your remote computer  <br />
+<code>
+$ cd ~/dc_sample_data/sra_metadata
+</code></p>
+  </li>
+  <li>
+    <p>Display the contents of the SraRunTable.txt on your screen  <br />
+<code>
+$ cat SraRunTable.txt
+</code></p>
+  </li>
+  <li>
+    <p>That’s probably not too pretty, so lets view it in a little more organized a format  <br />
+<code>
+$ column -t SraRunTable.txt
+</code></p>
+  </li>
+  <li>
+    <p>In this case we are using the ‘column’ program to make the print out more pretty. </p>
+  </li>
+</ol>
+
+<p>In the next lesson on the shell, we will be able to find out how to do a lot more with the shell, including what else the commands we have done can do. </p>
+
+<h2 id="data-description">Data Description</h2>
+
+<p>For the purposes of this workshop, we will be working with 6 of the fastq reads used in this experiment. </p>
+
+<table>
+  <thead>
+    <tr>
+      <th>SRA Run Number</th>
+      <th>Clone</th>
+      <th>Generation</th>
+      <th>Clade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SRR098028</td>
+      <td>REL1166A</td>
+      <td>2,000</td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td>SRR098281</td>
+      <td>ZDB409</td>
+      <td>5,000</td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td>SRR098283</td>
+      <td>ZDB446</td>
+      <td>15,000</td>
+      <td>UC</td>
+    </tr>
+    <tr>
+      <td>SRR097977</td>
+      <td>CZB152</td>
+      <td>33,000</td>
+      <td>Cit+</td>
+    </tr>
+    <tr>
+      <td>SRR098026</td>
+      <td>CZB154</td>
+      <td>33,000</td>
+      <td>Cit+</td>
+    </tr>
+    <tr>
+      <td>SRR098027</td>
+      <td>CZB199</td>
+      <td>33,000</td>
+      <td>C1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="where-to-learn-more">Where to learn more</h2>
+
+<h4 id="about-the-sequence-read-archive">About the Sequence Read Archive</h4>
+
+<ul>
+  <li>You can learn more about the SRA by reading the <a href="http://www.ncbi.nlm.nih.gov/Traces/sra/">SRA Documentation</a></li>
+  <li>The best way to transfer a large SRA dataset is by using the <a href="http://www.ncbi.nlm.nih.gov/Traces/sra/?view=toolkit_doc">SRA Toolkit</a></li>
+</ul>
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%20lessons/02-examining-sra-runtable.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

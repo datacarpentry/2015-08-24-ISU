@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Unix file system</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Unix file system</h1>
+          
+          <h1 id="getting-your-project-started">Getting your project started</h1>
+
+<p>Project organization is one of the most important parts of a sequencing project, but is often overlooked in the excitement to get a first look at new data. While it’s best to get yourself organized before you begin analysis,
+it’s never too late to start.</p>
+
+<p>You should approach your sequencing project in a very similar way to how you do a biological experiment, and ideally, begins with experimental design. We’re going to assume that you’ve already designed a beautiful sequencing experiment 
+to address your biological question, collected appropriate samples, and that you have enough statistical power. For all of those steps, collecting specimens, extracting DNA, prepping your samples, you’ve likely kept a lab notebook that details how and why you did each step, but documentation doesn’t stop at the sequencer! </p>
+
+<p>Every computational analysis you do is going to spawn many files, and inevitability, you’ll 
+want to run some of those analysis again. Genomics projects can quickly accumulates hundreds of files across tens of folders. Do you remember what PCR conditions you used to create your sequencing library? Probably not. Similarly, you probably won’t 
+remember whether your best alignment results were in Analysis1, AnalysisRedone, or AnalysisRedone2; or which quality cutoff 
+you used.</p>
+
+<p>Luckily, recording your computational experiments is even easier than recording lab data. Copy/Paste will become your best friend, sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Let’s look at the best practices for documenting your genomics project. </p>
+
+<p>Your future self will thank you.</p>
+
+<h2 id="exercise">Exercise</h2>
+
+<p>In this exercise we will setup a filesystem for the project we will be using over the next few days. We will also introduce you to some helpful shell commands/programs/tools:</p>
+
+<ul>
+  <li><code>mkdir</code></li>
+  <li><code>history</code></li>
+  <li><code>tail</code></li>
+  <li><code>|</code></li>
+  <li><code>nano</code></li>
+  <li><code>&gt;&gt;</code></li>
+</ul>
+
+<h4 id="a-create-a-file-system-for-a-project">A. Create a file system for a project</h4>
+
+<p>Inspired by the guide below, we will start by create a directory that we can use for the rest of the workshop:</p>
+
+<p>First, make sure that you are in your home directory:
+<code>bash
+$ pwd
+/home/dcuser
+# Hopefully you got the above output '/home/dcuser' 
+</code></p>
+
+<p><strong>Tip:</strong> Remember, when we give a command, rather than copying and pasting, just type it out. Also the ‘$’ indicates we are at the command prompt, do not include that in your command. </p>
+
+<p><strong>Tip</strong> If you were not in your home directory, the easiest way to get there is to enter the command <code>cd</code> which always returns you to home. </p>
+
+<p>Next, try making the following directories using the <code>mkdir</code> command</p>
+
+<ul>
+  <li>dc_workshop</li>
+  <li>dc_workshop/docs</li>
+  <li>dc_workshop/data</li>
+  <li>dc_workshop/results</li>
+</ul>
+
+<p>Verify that you have created the directories;</p>
+
+<p><code>bash 
+$ ls -R dc_workshop
+</code></p>
+
+<p>if you have created these directories, you should get the following output from that command:</p>
+
+<p>```bash
+dc_workshop/:
+data  docs  results</p>
+
+<p>dc_workshop/data:</p>
+
+<p>dc_workshop/docs:</p>
+
+<p>dc_workshop/results:
+```</p>
+
+<h4 id="b-document-your-activity-on-the-project">B. Document your activity on the project</h4>
+
+<p>The <em>history</em> command is a convenient way to document the all the commands you have used while analyzing and manipulating your project. Let’s document the work we have done to create these folders. </p>
+
+<ol>
+  <li>
+    <p>View the commands that you have used so far during this session using <code>history</code>:</p>
+
+    <p><code>bash
+$ history
+</code>
+The history likely contains many more commands that you have used just for these projects. Let’s view the last several commands so that focus on just what we need for the project. </p>
+  </li>
+  <li>
+    <p>View the last n lines of your history (where n = approximately the last few lines you think relevant - for our example we will use the last 7:</p>
+
+    <p><code>bash
+$ history | tail -n7
+</code>
+As you may remember from the shell lesson, the pipe <code>|</code> sends the output of history to the next program, in this case, tail. We have used the -n option to give the last 7 lines.</p>
+  </li>
+  <li>Using your knowledge of the shell use the append redirect <code>&gt;&gt;</code> to create a file called <strong>dc_workshop_log_XXXX_XX_XX.txt</strong> (Use the four-digit year, two-digit month, and two digit day, e.g. dc_workshop_log_2015_07_30.txt)</li>
+  <li>You may have noticed that your history may contain the <code>history</code> command itself. To remove this redundancy from our log, lets use the <code>nano</code> text editor to fix the file:
+<code>bash
+$ nano dc_workshop_log
+</code>
+From the nano screen, you should be able to use your cursor to navigate, type, and delete any redundant lines. </li>
+  <li>Add a dateline and comment to the line where you have created the directory e.g. <br />
+<code>
+# 2015_07_30 
+</code>
+<br />
+<code>
+# Created sample directories for the Data Carpentry workshop
+</code></li>
+  <li>Next, remove any lines of the history that are not relevant. Just navigate to those lines and use your delete key. </li>
+  <li>Close nano by hitting ‘Control’ and the ‘X’ key at the same time; notice in nano this is abbreviated ‘\^X’; nano will ask if you want to save; hit ‘Y’ for yes. When prompted for the ‘File Name to Write’ we can hit ‘Enter’ to keep the same name and save. </li>
+  <li>Now that you have created the file, move the file to ‘dc_workshop/docs’ using the <code>mv</code> command. </li>
+</ol>
+
+<p><strong>Questions</strong>: <br />
+1. What is the default number of lines that tail displays?<br />
+2. What is the difference between ‘&gt;’ and ‘»’</p>
+
+<h3 id="references">References</h3>
+<p>[A Quick Guide to Organizing Computational Biology Projects] (http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)</p>
+
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%20lessons/03-unix-organization.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

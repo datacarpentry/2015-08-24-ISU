@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <title>Variant calling</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="./css/swc.css" />
+<link rel="stylesheet" type="text/css" href="./css/swc-bootstrap.css" />
+<meta charset="UTF-8" />
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./css/lesson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://datacarpentry.org" title="Data Carpentry">
+    <img alt="Data Carpentry banner" src="./img/DC1_logo_small.png" height="50px" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+	  <!-- start content -->
+          
+          <h1>Variant calling</h1>
+          
+          <h1 id="lesson">Lesson</h1>
+
+<h1 id="automating-a-workflow">Automating a workflow</h1>
+
+<h2 id="learning-objectives">Learning Objectives:</h2>
+<p>#### What’s the goal for this lesson?</p>
+
+<ul>
+  <li>Use a series of command line tools to perform a variant calling workflow</li>
+  <li>Use a For loop from the previous lesson to help automate repetitive tasks</li>
+  <li>Group a series of sequential commands into a script to automate a workflow</li>
+</ul>
+
+<p>To get started with this lesson, we will need to grab some data from an outside
+server using <code>wget</code> on the command line.</p>
+
+<p>Make sure you are in the dc_workshop directory first</p>
+
+<p><code>bash
+$ cd ~/dc_workshop
+$ wget http://reactomerelease.oicr.on.ca/download/archive/variant_calling.tar.gz
+</code></p>
+
+<p>The file ‘variant_calling.tar.gz’ is what is commonly called a “tarball”, which is
+a compressed archive similar to the .zip files we have seen before.  We can decompress
+this archive using the command below.</p>
+
+<p><code>bash
+$ tar -zxvf variant_calling.tar.gz
+</code>
+This will create a directory tree that contains some input data (reference genome and fastq files)
+and a shell script that details the series of commands used to run the variant calling workflow.</p>
+
+<pre>
+variant_calling
+├── ref_genome
+│   └── ecoli_rel606.fasta
+├── run_variant_calling.sh
+└── trimmed_fastq
+    ├── SRR097977.fastq
+    ├── SRR098026.fastq
+    ├── SRR098027.fastq
+    ├── SRR098028.fastq
+    ├── SRR098281.fastq
+    └── SRR098283.fastq
+</pre>
+
+<p>Without getting into the details yet, the variant calling workflow will do the following steps</p>
+
+<ol>
+  <li>Index the reference genome for use by bwa and samtools</li>
+  <li>Align reads to reference genome</li>
+  <li>Convert the format of the alignment to sorted BAM, with some intermediate steps.</li>
+  <li>Calculate the read coverage of positions in the genome</li>
+  <li>Detect the single nucleotide polymorphisms (SNPs)</li>
+  <li>Filter and report the SNP variants in VCF (variant calling format)</li>
+</ol>
+
+<p>Let’s walk through the commands in the workflow</p>
+
+<p>The first command is to change to our working directory
+so the script can find all the files it expects</p>
+
+<p><code>bash
+$ cd ~/dc_workshop/variant_calling
+</code></p>
+
+<p>Assign the name/location of our reference genome
+to a variable ($genome)</p>
+
+<p><code>bash
+$ genome=data/ref_genome/ecoli_rel606.fasta
+</code></p>
+
+<p>We need to index the reference genome for bwa and samtools. bwa
+and samtools are programs that are pre-installed on our server.</p>
+
+<p><code>bash
+bwa index $genome
+samtools faidx $genome
+</code></p>
+
+<p>Create output paths for various intermediate and result files The -p option means mkdir will create the whole path if it does not exist (no error or message will give given if it does exist)</p>
+
+<p><code>bash
+$ mkdir -p results/sai
+$ mkdir -p results/sam
+$ mkdir -p results/bam
+$ mkdir -p results/bcf
+$ mkdir -p results/vcf
+</code></p>
+
+<p>We will now use a loop to run the variant calling work flow of each of our fastq files, so the list of command below will be execute once for each fastq files.</p>
+
+<p>We would start the loop like this, so the name of each fastq file will by assigned to $fq</p>
+
+<p><code>bash
+$ for fq in data/trimmed_fastq/*.fastq
+&gt; do
+&gt; # etc...
+</code></p>
+
+<p>In the script, it is a good idea to use echo for debugging/reporting to the screen</p>
+
+<p><code>bash
+$ echo "working with file $fq"
+</code></p>
+
+<p>This command will extract the base name of the file
+(without the path and .fastq extension) and assign it
+to the $base variable</p>
+
+<p><code>bash
+$ base=$(basename $fq .fastq)
+$ echo "base name is $base"
+</code></p>
+
+<p>We will assign various file names to variables both
+for convenience but also to make it easier to see what 
+is going on in the commands below.
+<code>bash
+$ fq=data/trimmed_fastq/$base\.fastq
+$ sai=results/sai/$base\_aligned.sai
+$ sam=results/sam/$base\_aligned.sam
+$ bam=results/bam/$base\_aligned.bam
+$ sorted_bam=results/bam/$base\_aligned_sorted.bam
+$ raw_bcf=results/bcf/$base\_raw.bcf
+$ variants=results/bcf/$base\_variants.bcf
+$ final_variants=results/vcf/$base\_final_variants.vcf    
+</code></p>
+
+<p>Our data are now staged.  The series of command below will run the steps of the analytical workflow</p>
+
+<p>Align the reads to the reference genome</p>
+
+<p><code>bash
+$ bwa aln $genome $fq &gt; $sai
+</code></p>
+
+<p>Convert the output to the SAM format</p>
+
+<p><code>bash
+$ bwa samse $genome $sai $fq &gt; $sam
+</code></p>
+
+<p>Convert the SAM file to BAM format</p>
+
+<p><code>bash
+$ samtools view -S -b $sam &gt; $bam
+</code>
+Sort the BAM file</p>
+
+<p><code>bash
+$ samtools sort -f $bam $sorted_bam
+</code>
+Index the BAM file for display purposes</p>
+
+<p><code>bash
+$ samtools index $sorted_bam
+</code></p>
+
+<p>Do the first pass on variant calling by counting
+read coverage</p>
+
+<p><code>bash
+$ samtools mpileup -g -f $genome $sorted_bam &gt; $raw_bcf
+</code>
+Do the SNP calling with bcftools</p>
+
+<p><code>bash
+$ bcftools view -bvcg $raw_bcf &gt; $variants
+</code>
+Filter the SNPs for the final output</p>
+
+<p><code>bash
+$ bcftools view $variants | /usr/share/samtools/vcfutils.pl varFilter - &gt; $final_variants
+</code></p>
+
+<hr />
+<p><strong>Exercise</strong>
+Run the script run_variant_calling.sh
+<em>**</em></p>
+
+
+	  <!-- end content -->
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="">Facebook</a>
+  <a class="label swc-blue-bg" href="">Google+</a>
+  <a class="label swc-blue-bg" href="">Twitter</a>
+  <a class="label swc-blue-bg" href="">GitHub</a>
+  <a class="label swc-blue-bg" href="./LICENSE.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:?subject=bug%20in%20lessons/09-variant-calling-workflow.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>
