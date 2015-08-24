@@ -32,45 +32,46 @@ Although it looks complicated  (and maybe it is), its easy to understand the [fa
 |4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
 
 so for example in our data set, one complete read is:
-```
-$ head -n4 SRR098281.fastq 
-@SRR098281.1 HWUSI-EAS1599_1:2:1:0:318 length=35
-CNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-+SRR098281.1 HWUSI-EAS1599_1:2:1:0:318 length=35
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-```
+
+    $ head -n4 SRR098281.fastq 
+      @SRR098281.1 HWUSI-EAS1599_1:2:1:0:318 length=35
+      CNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+      +SRR098281.1 HWUSI-EAS1599_1:2:1:0:318 length=35
+      #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 This is a pretty bad read. 
 
-Notice that line 4 is:
+Notice that line 4 is:    
 ```
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ```
+
 As mentioned above, line 4 is a encoding of the quality. In this case, the code is the [ASCII](https://en.wikipedia.org/wiki/ASCII#ASCII_printable_code_chart) character table. According to the chart a '#' has the value 35 and '!' has the value 33 - **But these values are not actually the quality scores!** There are actually several historical differences in how Illumina and other players have encoded the scores. Heres the chart from wikipedia:
 
-```
-  SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.....................................................
-  ..........................XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX......................
-  ...............................IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII......................
-  .................................JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ......................
-  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL....................................................
-  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-  |                         |    |        |                              |                     |
- 33                        59   64       73                            104                   126
-  0........................26...31.......40                                
-                           -5....0........9.............................40 
-                                 0........9.............................40 
-                                    3.....9.............................40 
-  0.2......................26...31........41                              
+    SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.....................................................
+    ..........................XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX......................
+    ...............................IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII......................
+    .................................JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ......................
+    LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL....................................................
+    !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+    |                         |    |        |                              |                     |
+   33                        59   64       73                            104                   126
+    0........................26...31.......40                                
+                             -5....0........9.............................40 
+                                   0........9.............................40 
+                                      3.....9.............................40 
+    0.2......................26...31........41                              
 
- S - Sanger        Phred+33,  raw reads typically (0, 40)
- X - Solexa        Solexa+64, raw reads typically (-5, 40)
- I - Illumina 1.3+ Phred+64,  raw reads typically (0, 40)
- J - Illumina 1.5+ Phred+64,  raw reads typically (3, 40)
-     with 0=unused, 1=unused, 2=Read Segment Quality Control Indicator (bold) 
-     (Note: See discussion above).
- L - Illumina 1.8+ Phred+33,  raw reads typically (0, 41)
- ```
- So using the Illumina 1.8 encouding, which is what you will mostly see from now on, our first c is called with a Phred score of 0 and our Ns are called with a score of 2. Read quality is assessed using the Phred Quality Score.  This score is logarithmically based and the score values can be interpreted as follows:
+    S - Sanger        Phred+33,  raw reads typically (0, 40)
+    X - Solexa        Solexa+64, raw reads typically (-5, 40)
+    I - Illumina 1.3+ Phred+64,  raw reads typically (0, 40)
+    J - Illumina 1.5+ Phred+64,  raw reads typically (3, 40)
+    with 0=unused, 1=unused, 2=Read Segment Quality Control Indicator (bold) 
+    (Note: See discussion above).
+    L - Illumina 1.8+ Phred+33,  raw reads typically (0, 41)
+ 
+
+So using the Illumina 1.8 encouding, which is what you will mostly see from now on, our first c is called with a Phred score of 0 and our Ns are called with a score of 2. Read quality is assessed using the Phred Quality Score.  This score is logarithmically based and the score values can be interpreted as follows:
 
 |Phred Quality Score |Probability of incorrect base call |Base call accuracy|
 |:-------------------|:---------------------------------:|-----------------:|
@@ -97,24 +98,21 @@ The main functions of FastQC are
 
 1. Create a working directory for your analysis
    
-    ```bash
     $ cd
     # this command takes us to the home directory
     
     $ mkdir dc_workshop
-    ```
+
 2. Create three three subdirectories
 
-   ```bash
-    mkdir dc_workshop/data
-    mkdir dc_workshop/docs
-    mkdir dc_workshop/results
-```
+    $ mkdir dc_workshop/data
+    $ mkdir dc_workshop/docs
+    $ mkdir dc_workshop/results
 
   > The sample data we will be working with is in a hidden directory (placing a '.' in front of a directory name hides the directory. In the next step we will move some of those hidden files into our new dirctories to start our project. 
 3. Move our sample data to our working (home) directory
    
-   ```bash 
+```
 $ mv ~/.dc_sampledata_lite/untrimmed_fastq/ ~/dc_workshop/data/
 ```
 
@@ -122,17 +120,19 @@ $ mv ~/.dc_sampledata_lite/untrimmed_fastq/ ~/dc_workshop/data/
 
 1. Navigate to the initial fastq dataset
    
-    ```bash
+    ```
     $ cd ~/dc_workshop/data/untrimmed_fastq/
     ```
+
 To run the fastqc program, we call it from its location in ``~/FastQC``.  fastqc will accept multiple file names as input, so we can use the *.fastq wildcard.
 2. Run FastQC on all fastq files in the directory
 
-    ```bash
+    ```
     $ ~/FastQC/fastqc *.fastq
     ```
+
 Now, let's create a home for our results
-    ```bash
+    ```
     $ mkdir ~/dc_workshop/results/fastqc_untrimmed_reads
     ```
 3. Next, move the files there (recall, we are still in ``~/dc_workshop/data/untrimmed_fastq/``)
@@ -252,26 +252,22 @@ $ java -jar /home/dcuser/Trimmomatic-0.32/trimmomatic-0.32.jar SE SRR098283.fast
     Quality encoding detected as phred33
     Input Reads: 21564058 Surviving: 17030985 (78.98%) Dropped: 4533073 (21.02%)
     TrimmomaticSE: Completed successfully
-```
+
 So that worked and we have a new fastq file.
 
-   ```bash
     $ ls SRR098283*
-    SRR098283.fastq  SRR098283.fastq_trim.fastq
-```
+      SRR098283.fastq  SRR098283.fastq_trim.fastq
 
 Now we know how to run trimmomatic but there is some good news and bad news.  
 One should always ask for the bad news first.  Trimmomatic only operates on 
 one input file at a time and we have more than one input file.  The good news?
 We already know how to use a for loop to deal with this situation.
 
-```bash
-$ for infile in *.fastq
-    >do
-    >outfile=$infile\_trim.fastq
-    >java -jar ~/Trimmomatic-0.32/trimmomatic-0.32.jar SE $infile $outfile SLIDINGWINDOW:4:20 MINLEN:20
-    >done
-```
+    $ for infile in *.fastq
+        >do
+        >outfile=$infile\_trim.fastq
+        >java -jar ~/Trimmomatic-0.32/trimmomatic-0.32.jar SE $infile $outfile SLIDINGWINDOW:4:20 MINLEN:20
+        >done
 
 Do you remember how the first specifies a variable that is assigned the value of each item in the list in turn?  We can call it whatever we like.  This time it is called infile.  Note that the third line of this for loop is creating a second variable called outfile.  We assign it the value of $infile with '_trim.fastq' appended to it.  The '\' escape character is used so the shell knows that whatever follows \ is not part of the variable name $infile.  There are no spaces before or after the '='.
 
