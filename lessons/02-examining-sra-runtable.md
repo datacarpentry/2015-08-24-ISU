@@ -73,20 +73,21 @@ We are going to be doing our formal shell lesson next. However, we can already p
 
 During the shell lesson we will go much more step-by-step, building our way through every command before we use it. For this first command go ahead any copy and paste if you are just getting use to the shell. The other commands are short enough to type and follow. 
 
-1. Follow you instructor's direction to navigate to the sample SraRunTable.txt file that has be placed on your remote computer
-
-    ```bash
+1. Follow you instructor's direction to navigate to the sample SraRunTable.txt file that has be placed on your remote computer    
+```
 $ cd ~/dc_sample_data/sra_metadata
 ```
-2. Display the contents of the SraRunTable.txt on your screen
-    ```bash
+
+2. Display the contents of the SraRunTable.txt on your screen    
+```
 $ cat SraRunTable.txt
 ```
-3. That's probably not too pretty, so lets view it in a little more organized a format
 
-    ```bash
+3. That's probably not too pretty, so lets view it in a little more organized a format    
+```
 $ column -t SraRunTable.txt
 ```
+
 4. In this case we are using the 'column' program to make the print out more pretty. 
 
 

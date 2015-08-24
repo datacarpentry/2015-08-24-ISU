@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: .
-title: Get to know your data
+title: 
 author: Sheldon McKay 
 ---
 
@@ -11,18 +11,19 @@ Getting to know your data
 
 Learning Objectives:
 -------------------
-#### What's the goal for this lesson?
-* You should be able to identify common features of "data" and data formats and what those features imply
-* You should be able to look at a file and be able to identify the following types of data: fasta, fastq, fastg, sra, sff, vcf, sam, bam, bed, etc...
-* You should be able to identify where your data came from (provenance)
 
-#### At the end of this lesson you should be able to:
-* Recognize file formats
-* Whether your data files are zipped or unzipped. You should have an understanding of file compression.
-* How to determine the file size
-* How many units are in the file (i.e. nucleotides, lines of data, sequence reads, etc.)
-* How to look at data structure using the shell -- does it agree with the file extension?
-* Identify a binary, flat text file? 
+#### What's the goal for this lesson?    
+* You should be able to identify common features of "data" and data formats and what those features imply         
+* You should be able to look at a file and be able to identify the following types of data: fasta, fastq, fastg, sra, sff, vcf, sam, bam, bed, etc...        
+* You should be able to identify where your data came from (provenance)       
+
+#### At the end of this lesson you should be able to:    
+* Recognize file formats     
+* Whether your data files are zipped or unzipped. You should have an understanding of file compression.       
+* How to determine the file size.         
+* How many units are in the file (i.e. nucleotides, lines of data, sequence reads, etc.)      
+* How to look at data structure using the shell -- does it agree with the file extension?      
+* Identify a binary, flat text file?          
  
 
 
@@ -30,16 +31,16 @@ Learning Objectives:
 
 | File Extension |	Type of Data |	Format |	Example(s) | 
 | :------------- | :------------- | :---------------- | :----------------| :----------------| :---------------|
-| txt | multi-format | Text | study metadata, tab-delimited data | <a href="https://en.wikipedia.org/wiki/Text_file" txt</a> | |
-| fastq	| nucleotide  | Text |	sequencing reads |<a href="https://en.wikipedia.org/wiki/FASTQ_format" fastq </a> |  |
-| fasta	| nucleotide, protein | Text | the human genome | <a href="https://en.wikipedia.org/wiki/FASTA" fasta</a>| |
-| sff	| nucleotide	| Binary |	Roche/454 sequencing data |	<a href="http://www.ncbi.nlm.nih.gov/Traces/trace.cgi?cmd=show&f=formats&m=doc&s=format#sff" sff</a> |	|
+| txt | multi-format | Text | study metadata, tab-delimited data | <a href="https://en.wikipedia.org/wiki/Text_file">txt| |
+| fastq	| nucleotide  | Text |	sequencing reads |<a href="https://en.wikipedia.org/wiki/FASTQ_format"> fastq |  |
+| fasta	| nucleotide, protein | Text | the human genome | <a href="https://en.wikipedia.org/wiki/FASTA"> fasta| |
+| sff	| nucleotide	| Binary |	Roche/454 sequencing data |	<a href="http://www.ncbi.nlm.nih.gov/Traces/trace.cgi?cmd=show&f=formats&m=doc&s=format#sff"> sff |	|
 | vcf | multi-format | Text	 |	variation/SNP calls |	|  |
-| sam | alignment | Text  |	reads aligned to a reference  | <a href="https://samtools.github.io/hts-specs/SAMv1.pdf" sam </a> |	 |
-| bam | alignment	| Binary  |	reads aligned to a reference | <a href="https://samtools.github.io/hts-specs/SAMv1.pdf" bam </a> |	 |
-| bed | metadata / feature definitions  | Binary  | genome coverage | <a href="http://www.ensembl.org/info/website/upload/bed.html" bed </a> |  |
-| h5 | binary hierarchical | Binary | PacBio sequencing data | <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format" h5 </a>| |
-| pileup | alignment | Text | mpileup, SNP and indel calling| <a href="https://en.wikipedia.org/wiki/Pileup_format" pileup</a>| |
+| sam | alignment | Text  |	reads aligned to a reference  | <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"> sam |	 |
+| bam | alignment	| Binary  |	reads aligned to a reference | <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"> bam |	 |
+| bed | metadata / feature definitions  | Binary  | genome coverage | <a href="http://www.ensembl.org/info/website/upload/bed.html"> bed |  |
+| h5 | binary hierarchical | Binary | PacBio sequencing data | <a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format"> h5 | |
+| pileup | alignment | Text | mpileup, SNP and indel calling| <a href="https://en.wikipedia.org/wiki/Pileup_format"> pileup| |
 
 ##Looking at the data for this workshop
 
@@ -66,19 +67,13 @@ According to [wikipedia](https://en.wikipedia.org/wiki/Checksum) a checksum is '
 
 ### A. File integrity - download a reference genome and verify the download 
 
-1. Use ``wget`` to download two 'test' genomes from the following url:
-
-   ```bash
+1. Use ``wget`` to download one 'test' genomes from the following url:
+```
 $ wget http://de.iplantcollaborative.org/dl/d/6E4E9943-93F8-4136-86E3-14DA6D1B604F/GCF_000017985.1_ASM1798v1_genomic_2.fna
 ```
-and
-   
-   ```bash
-$ wget http://de.iplantcollaborative.org/dl/d/6E4E9943-93F8-4136-86E3-14DA6D1B604F/GCF_000017985.1_ASM1798v1_genomic_2.fna
-```
-2. Next for each of the use md5sum and compare the results
 
-   ```bash 
+2. Next for each file use md5sum and compare the results
+``` 
 $ md5sum <file>
 ```
 
@@ -87,37 +82,38 @@ $ md5sum <file>
 1. Visit the Ensembl database at [http://bacteria.ensembl.org/index.html](http://bacteria.ensembl.org/index.html). In the 'Search for a genome' search box search for 'Escherichia coli B str. REL606'; this should bring you to the genome of the strain used in the Lenski experiment ([ensemble direct link](http://bacteria.ensembl.org/escherichia_coli_b_str_rel606/Info/Index))
 2. There will be a link '[Download DNA Sequence](ftp://ftp.ensemblgenomes.org/pub/bacteria/release-27/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/dna/)(FASTA)'. Click on the link an copy the URL from the web browsers navigation/location display (i.e. http://bacteria.ensembl.org/escherichia_coli_b_str_rel606/Info/Index). 
 3. Use the ``wget`` command to download the contents of the ftp site (don't forget to use the '*' wildcard to download all files)
-
-   ```bash
+```
 $ wget ftp://ftp.ensemblgenomes.org/pub/bacteria/release-27/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/dna/*
 ```
+
 You should have downloaded the following files:
 
-   ```
-CHECKSUMS
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.chromosome.Chromosome.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.chromosome.Chromosome.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.genome.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.toplevel.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.chromosome.Chromosome.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.genome.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.toplevel.fa.gz
-Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.toplevel.fa.gz
-README
-```
-4. Use the ``less`` command to examine the README file - in particular, look at the <sequence type> definition to understand what the differently zipped files are. 
-5. Generate a checksum using the ``sum`` command(``sum`` is used by Enseml and is  an alternative to ``md5sum``) for the **'Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz'** file and compare with the last few digits of the sum displayed in the CHECKSUMS file. 
-6. Preview the first few lines (``head``) of the compressed (gzip'd) reference genome using the ``zcat`` command:
+    CHECKSUMS    
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.chromosome.Chromosome.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz    
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.chromosome.Chromosome.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.genome.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_rm.toplevel.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.chromosome.Chromosome.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.genome.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna_sm.toplevel.fa.gz   
+    Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.toplevel.fa.gz   
+    README   
 
-   ```bash
+4. Use the ``less`` command to examine the README file - in particular, look at the <sequence type> definition to understand what the differently zipped files are. 
+
+5. Generate a checksum using the ``sum`` command(``sum`` is used by Enseml and is  an alternative to ``md5sum``) for the **'Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz'** file and compare with the last few digits of the sum displayed in the CHECKSUMS file. 
+
+6. Preview the first few lines (``head``) of the compressed (gzip'd) reference genome using the ``zcat`` command:
+```
 $ zcat Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz |head
 ```
-7. Finally, unzip the E.coli reference genome, which will be part of the variant calling lesson and place it in your 'data folder' in a new 'ref_genome' folder. 
 
-   ```bash
+7. Finally, unzip the E.coli reference genome, which will be part of the variant calling lesson and place it in your 'data folder' in a new 'ref_genome' folder. 
+```
 $ gzip -d Escherichia_coli_b_str_rel606.GCA_000017985.1.27.dna.genome.fa.gz
 ```
+
 **Tip:** create the 'ref_genome' folder in '~/dc_workshop/data' and use the *cp* command to move the data
 
 

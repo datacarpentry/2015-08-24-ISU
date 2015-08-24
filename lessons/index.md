@@ -24,7 +24,11 @@ Contributors: **Jennifer Bryan**, **Alexander Duryee**, **Jeffrey Hollister**, *
 
 ## Lessons:
 
-1. [Introduction](00-intro-to-data-tidy.html)			
+1. [Introduction to Data Carpentry](img/Data_carpentry_intro.pdf)
+2. [Pre-class Survey](http://ucbpsych.qualtrics.com/SE/?SID=SV_1XhhL17azc65jmZ)
+3. [Importance of Data Organization](00-intro-to-data-tidy.html)			
+4. [Amazon EC2](https://github.com/JasonJWilliamsNY/cloud-genomics/blob/master/lessons/1.logging-onto-cloud.md)
+5. coffee
 2. [Experiment example](01-intro-to-ecoli-evo-experient.html)		
 3. [SRA runtable](02-examining-sra-runtable.html)		
 4. [Unix organization](03-unix-organization.html)		
@@ -41,7 +45,6 @@ Contributors: **Jennifer Bryan**, **Alexander Duryee**, **Jeffrey Hollister**, *
 
 ## Data
 
-Data file for the lesson is: [phm-collection-messy.xls](phm-collection-messy.xls)
 
 
 <br>
