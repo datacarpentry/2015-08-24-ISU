@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: .
-title: examining SRA run table
+title: Data Retrieval 
 minutes: 20
 author:  Data capentry contributors
 ---
@@ -23,11 +23,11 @@ For example, if we wanted to download data from an FTP site, we could open a bro
 
 Alternately, you could use download programs using wget. 
 
-    wget http://athyra.idyll.org/~t/REL606.fa.gz
+    $ wget http://athyra.idyll.org/~t/REL606.fa.gz
 
 Or
 
-    curl -O http://athyra.idyll.org/~t/REL606.fa.gz
+    $ curl -O http://athyra.idyll.org/~t/REL606.fa.gz
     
 All programs have parameters that are associated with options from the program.  You can read documentation here for [wget](http://www.gnu.org/software/wget/manual/wget.html) and [curl](http://curl.haxx.se/docs/manual.html).  A note:  if you download software from Sourceforge, you'll want to get familiar with the curl -L command with the redirect to a file ">" which you'll learn later.
    

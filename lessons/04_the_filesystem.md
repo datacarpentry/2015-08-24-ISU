@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: .
-title: The Shell
+title: 
 minutes: 20
 author: Sheldon McKay
 ---
