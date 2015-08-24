@@ -32,17 +32,31 @@ We are going to introduce the idea of command line arguments.  In R, you would t
 
 Let's first write a script to add two numbers in R.  Let's write this solution out to a file, your choice in name.
 
+If you want to try it yourself, don't look below.  But in case you need some hints.  You can see the solution here:
+
+    data <- read.csv("data.txt", header=FALSE)
+    sum <- data[1] + data[2]
+    print(sum)
+    write.table(sum, file="data.txt.sum", quote=FALSE, row.names=FALSE, col.names=FALSE)
+
+To execute an Rscript on the command line, you could type:
+
+    Rscript <name of script> 
+
 ### Adding the commandArgs
 
-To execute an Rscript, you could type:
+Now, if you wanted to add commandArgs to this script, your script might look like:
 
-    Rscript <name of script>
+    args <- commandArgs(TRUE)
+    data <- read.csv(args[1], header=FALSE)
+    sum <- data[1] + data[2]
+    write.table(sum, file=args[2], quote=FALSE, row.names=FALSE, col.names=FALSE)
 
-If you wanted to add arguments:
+To execute this:
 
-    Rscript <name of script> <arg1> <arg2> <...>
+    Rscript <name of script> <arg1> <arg2>
 
-The following command can be added to your R script that will store the arguments in a R vector or list.
+In summary, the following command can be added to your R script that will store the arguments in a R vector or list.
 
     args <- commandArgs(TRUE)
 
@@ -54,3 +68,8 @@ Here's how to execute it on one file, where data.txt is my input file and data.s
 
     Rscript <name of script> data.txt data.sum
 
+A for loop might look like:
+
+    for x in *txt; do Rscript myRscript.R $x $x.sum; done
+    
+TADA!
