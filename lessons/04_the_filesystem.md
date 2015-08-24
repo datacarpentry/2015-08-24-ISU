@@ -100,7 +100,7 @@ After loggin on, let's check out the example data.
 
 Let's go into the sample data  directory   
 ```
-$ cd dc_sample/data
+$ cd dc_sample_data
 ```
 
 'cd' stands for 'change directory'
