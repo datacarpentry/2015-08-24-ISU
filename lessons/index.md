@@ -48,12 +48,6 @@ Contributors: **Jennifer Bryan**, **Alexander Duryee**, **Jeffrey Hollister**, *
 The complete R for genomics analysis lesson is [HERE](http://tracykteal.github.io/R-genomics/)
 
 
-
-
-## Data
-
-
-
 <br>
 
 <h2>Requirements</h2>
