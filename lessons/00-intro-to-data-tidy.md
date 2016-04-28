@@ -55,7 +55,7 @@ Take a couple minutes to look at this data, can you identify some problems with 
 
 What does an excel sheet look like to my computer?
 
-Some data requires a program to read it tractably.  Excel is one of these special programs that reads excel worksheets.  Here's what the spreadsheet (part of it) you worked withlooks like to your computer without Excel:
+Some data requires a program to read it tractably.  Excel is one of these special programs that reads excel worksheets.  Here's what the spreadsheet (part of it) you worked with looks like to your computer without Excel:
       
     �%#����T�)���)�eFa���Bɶ�l6
     ���,�0�l %kc�w�cՂX8�"�>�ē��/y���=�"
